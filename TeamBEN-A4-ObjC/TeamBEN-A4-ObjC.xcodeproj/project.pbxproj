@@ -28,7 +28,8 @@
 		AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CB1B1AB115AB0040EE02 /* MasterViewController.m */; };
 		AD43CB1F1AB11A620040EE02 /* ModuleA_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD43CB1E1AB11A620040EE02 /* ModuleA_Storyboard.storyboard */; };
 		AD43CB221AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */; };
-		AD43CB251AB11FB10040EE02 /* ModuleAViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD43CB241AB11FB10040EE02 /* ModuleAViewController.mm */; };
+		EF9945D71AB8C6030031D06F /* VideoAnalgesic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9945D61AB8C6030031D06F /* VideoAnalgesic.swift */; };
+		EF9945DF1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +72,9 @@
 		AD43CB1B1AB115AB0040EE02 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		AD43CB1E1AB11A620040EE02 /* ModuleA_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ModuleA_Storyboard.storyboard; sourceTree = "<group>"; };
 		AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ModuleB_Storyboard.storyboard; sourceTree = "<group>"; };
-		AD43CB231AB11FB10040EE02 /* ModuleAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleAViewController.h; sourceTree = "<group>"; };
-		AD43CB241AB11FB10040EE02 /* ModuleAViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModuleAViewController.mm; sourceTree = "<group>"; };
+		EF9945D51AB8C6010031D06F /* TeamBEN-A4-ObjC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamBEN-A4-ObjC-Bridging-Header.h"; sourceTree = "<group>"; };
+		EF9945D61AB8C6030031D06F /* VideoAnalgesic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoAnalgesic.swift; path = ../../../../Downloads/LookinLiveWithFlash/LookinLive/VideoAnalgesic.swift; sourceTree = "<group>"; };
+		EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleAViewControllerSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +157,10 @@
 		AD43CADD1AB109190040EE02 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EF9945D61AB8C6030031D06F /* VideoAnalgesic.swift */,
 				AD43CADE1AB109190040EE02 /* Info.plist */,
 				AD43CADF1AB109190040EE02 /* main.m */,
+				EF9945D51AB8C6010031D06F /* TeamBEN-A4-ObjC-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -181,9 +185,8 @@
 		AD43CB1D1AB11A210040EE02 /* Module A */ = {
 			isa = PBXGroup;
 			children = (
+				EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */,
 				AD43CB1E1AB11A620040EE02 /* ModuleA_Storyboard.storyboard */,
-				AD43CB231AB11FB10040EE02 /* ModuleAViewController.h */,
-				AD43CB241AB11FB10040EE02 /* ModuleAViewController.mm */,
 			);
 			name = "Module A";
 			sourceTree = "<group>";
@@ -298,9 +301,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD43CB251AB11FB10040EE02 /* ModuleAViewController.mm in Sources */,
+				EF9945D71AB8C6030031D06F /* VideoAnalgesic.swift in Sources */,
 				AD43CAE61AB109190040EE02 /* ViewController.mm in Sources */,
 				AD43CAE31AB109190040EE02 /* AppDelegate.m in Sources */,
+				EF9945DF1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift in Sources */,
 				AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */,
 				AD43CB191AB10A680040EE02 /* CvVideoCameraMod.m in Sources */,
 				AD43CAE01AB109190040EE02 /* main.m in Sources */,
@@ -427,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -434,6 +439,8 @@
 				INFOPLIST_FILE = "TeamBEN-A4-ObjC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TeamBEN-A4-ObjC/TeamBEN-A4-ObjC-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -441,6 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -448,6 +456,7 @@
 				INFOPLIST_FILE = "TeamBEN-A4-ObjC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TeamBEN-A4-ObjC/TeamBEN-A4-ObjC-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -504,6 +513,7 @@
 				AD43CAFF1AB1091A0040EE02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD43CB001AB1091A0040EE02 /* Build configuration list for PBXNativeTarget "TeamBEN-A4-ObjCTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +522,7 @@
 				AD43CB021AB1091A0040EE02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
