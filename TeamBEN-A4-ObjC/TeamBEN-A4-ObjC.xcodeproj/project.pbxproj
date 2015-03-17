@@ -1,0 +1,519 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AD43CAE01AB109190040EE02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CADF1AB109190040EE02 /* main.m */; };
+		AD43CAE31AB109190040EE02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CAE21AB109190040EE02 /* AppDelegate.m */; };
+		AD43CAE61AB109190040EE02 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD43CAE51AB109190040EE02 /* ViewController.mm */; };
+		AD43CAE91AB109190040EE02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD43CAE71AB109190040EE02 /* Main.storyboard */; };
+		AD43CAEB1AB109190040EE02 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD43CAEA1AB109190040EE02 /* Images.xcassets */; };
+		AD43CAEE1AB109190040EE02 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD43CAEC1AB109190040EE02 /* LaunchScreen.xib */; };
+		AD43CAFA1AB1091A0040EE02 /* TeamBEN_A4_ObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CAF91AB1091A0040EE02 /* TeamBEN_A4_ObjCTests.m */; };
+		AD43CB041AB1094D0040EE02 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB031AB1094D0040EE02 /* CoreMedia.framework */; };
+		AD43CB061AB109580040EE02 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB051AB109580040EE02 /* QuartzCore.framework */; };
+		AD43CB081AB109610040EE02 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB071AB109610040EE02 /* CoreVideo.framework */; };
+		AD43CB0A1AB1096A0040EE02 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB091AB1096A0040EE02 /* CoreAudio.framework */; };
+		AD43CB0C1AB109750040EE02 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB0B1AB109750040EE02 /* CoreImage.framework */; };
+		AD43CB0E1AB1097F0040EE02 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB0D1AB1097F0040EE02 /* CoreGraphics.framework */; };
+		AD43CB101AB109890040EE02 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB0F1AB109890040EE02 /* AssetsLibrary.framework */; };
+		AD43CB121AB109920040EE02 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB111AB109920040EE02 /* Accelerate.framework */; };
+		AD43CB141AB1099A0040EE02 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB131AB1099A0040EE02 /* AVFoundation.framework */; };
+		AD43CB161AB109DC0040EE02 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD43CB151AB109DC0040EE02 /* opencv2.framework */; };
+		AD43CB191AB10A680040EE02 /* CvVideoCameraMod.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CB181AB10A680040EE02 /* CvVideoCameraMod.m */; };
+		AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CB1B1AB115AB0040EE02 /* MasterViewController.m */; };
+		AD43CB1F1AB11A620040EE02 /* ModuleA_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD43CB1E1AB11A620040EE02 /* ModuleA_Storyboard.storyboard */; };
+		AD43CB221AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */; };
+		AD43CB251AB11FB10040EE02 /* ModuleAViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD43CB241AB11FB10040EE02 /* ModuleAViewController.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AD43CAF41AB1091A0040EE02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD43CAD21AB109190040EE02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD43CAD91AB109190040EE02;
+			remoteInfo = "TeamBEN-A4-ObjC";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AD43CADA1AB109190040EE02 /* TeamBEN-A4-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TeamBEN-A4-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD43CADE1AB109190040EE02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD43CADF1AB109190040EE02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AD43CAE11AB109190040EE02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AD43CAE21AB109190040EE02 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AD43CAE41AB109190040EE02 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AD43CAE51AB109190040EE02 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		AD43CAE81AB109190040EE02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AD43CAEA1AB109190040EE02 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AD43CAED1AB109190040EE02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		AD43CAF31AB1091A0040EE02 /* TeamBEN-A4-ObjCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TeamBEN-A4-ObjCTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD43CAF81AB1091A0040EE02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD43CAF91AB1091A0040EE02 /* TeamBEN_A4_ObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamBEN_A4_ObjCTests.m; sourceTree = "<group>"; };
+		AD43CB031AB1094D0040EE02 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		AD43CB051AB109580040EE02 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AD43CB071AB109610040EE02 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		AD43CB091AB1096A0040EE02 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		AD43CB0B1AB109750040EE02 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		AD43CB0D1AB1097F0040EE02 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AD43CB0F1AB109890040EE02 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		AD43CB111AB109920040EE02 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		AD43CB131AB1099A0040EE02 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		AD43CB151AB109DC0040EE02 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		AD43CB171AB10A680040EE02 /* CvVideoCameraMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CvVideoCameraMod.h; sourceTree = "<group>"; };
+		AD43CB181AB10A680040EE02 /* CvVideoCameraMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CvVideoCameraMod.m; sourceTree = "<group>"; };
+		AD43CB1A1AB115AB0040EE02 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		AD43CB1B1AB115AB0040EE02 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		AD43CB1E1AB11A620040EE02 /* ModuleA_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ModuleA_Storyboard.storyboard; sourceTree = "<group>"; };
+		AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ModuleB_Storyboard.storyboard; sourceTree = "<group>"; };
+		AD43CB231AB11FB10040EE02 /* ModuleAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleAViewController.h; sourceTree = "<group>"; };
+		AD43CB241AB11FB10040EE02 /* ModuleAViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModuleAViewController.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AD43CAD71AB109190040EE02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD43CB141AB1099A0040EE02 /* AVFoundation.framework in Frameworks */,
+				AD43CB121AB109920040EE02 /* Accelerate.framework in Frameworks */,
+				AD43CB101AB109890040EE02 /* AssetsLibrary.framework in Frameworks */,
+				AD43CB0E1AB1097F0040EE02 /* CoreGraphics.framework in Frameworks */,
+				AD43CB0C1AB109750040EE02 /* CoreImage.framework in Frameworks */,
+				AD43CB0A1AB1096A0040EE02 /* CoreAudio.framework in Frameworks */,
+				AD43CB081AB109610040EE02 /* CoreVideo.framework in Frameworks */,
+				AD43CB061AB109580040EE02 /* QuartzCore.framework in Frameworks */,
+				AD43CB161AB109DC0040EE02 /* opencv2.framework in Frameworks */,
+				AD43CB041AB1094D0040EE02 /* CoreMedia.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD43CAF01AB1091A0040EE02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AD43CAD11AB109190040EE02 = {
+			isa = PBXGroup;
+			children = (
+				AD43CB151AB109DC0040EE02 /* opencv2.framework */,
+				AD43CB131AB1099A0040EE02 /* AVFoundation.framework */,
+				AD43CB111AB109920040EE02 /* Accelerate.framework */,
+				AD43CB0F1AB109890040EE02 /* AssetsLibrary.framework */,
+				AD43CB0D1AB1097F0040EE02 /* CoreGraphics.framework */,
+				AD43CB0B1AB109750040EE02 /* CoreImage.framework */,
+				AD43CB091AB1096A0040EE02 /* CoreAudio.framework */,
+				AD43CB071AB109610040EE02 /* CoreVideo.framework */,
+				AD43CB051AB109580040EE02 /* QuartzCore.framework */,
+				AD43CB031AB1094D0040EE02 /* CoreMedia.framework */,
+				AD43CADC1AB109190040EE02 /* TeamBEN-A4-ObjC */,
+				AD43CAF61AB1091A0040EE02 /* TeamBEN-A4-ObjCTests */,
+				AD43CADB1AB109190040EE02 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD43CADB1AB109190040EE02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CADA1AB109190040EE02 /* TeamBEN-A4-ObjC.app */,
+				AD43CAF31AB1091A0040EE02 /* TeamBEN-A4-ObjCTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD43CADC1AB109190040EE02 /* TeamBEN-A4-ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CAEC1AB109190040EE02 /* LaunchScreen.xib */,
+				AD43CAE71AB109190040EE02 /* Main.storyboard */,
+				AD43CB1D1AB11A210040EE02 /* Module A */,
+				AD43CB201AB11D3C0040EE02 /* Module B */,
+				AD43CAE11AB109190040EE02 /* AppDelegate.h */,
+				AD43CAE21AB109190040EE02 /* AppDelegate.m */,
+				AD43CB171AB10A680040EE02 /* CvVideoCameraMod.h */,
+				AD43CB181AB10A680040EE02 /* CvVideoCameraMod.m */,
+				AD43CAE41AB109190040EE02 /* ViewController.h */,
+				AD43CAE51AB109190040EE02 /* ViewController.mm */,
+				AD43CB1A1AB115AB0040EE02 /* MasterViewController.h */,
+				AD43CB1B1AB115AB0040EE02 /* MasterViewController.m */,
+				AD43CAEA1AB109190040EE02 /* Images.xcassets */,
+				AD43CADD1AB109190040EE02 /* Supporting Files */,
+			);
+			path = "TeamBEN-A4-ObjC";
+			sourceTree = "<group>";
+		};
+		AD43CADD1AB109190040EE02 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CADE1AB109190040EE02 /* Info.plist */,
+				AD43CADF1AB109190040EE02 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AD43CAF61AB1091A0040EE02 /* TeamBEN-A4-ObjCTests */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CAF91AB1091A0040EE02 /* TeamBEN_A4_ObjCTests.m */,
+				AD43CAF71AB1091A0040EE02 /* Supporting Files */,
+			);
+			path = "TeamBEN-A4-ObjCTests";
+			sourceTree = "<group>";
+		};
+		AD43CAF71AB1091A0040EE02 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CAF81AB1091A0040EE02 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AD43CB1D1AB11A210040EE02 /* Module A */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CB1E1AB11A620040EE02 /* ModuleA_Storyboard.storyboard */,
+				AD43CB231AB11FB10040EE02 /* ModuleAViewController.h */,
+				AD43CB241AB11FB10040EE02 /* ModuleAViewController.mm */,
+			);
+			name = "Module A";
+			sourceTree = "<group>";
+		};
+		AD43CB201AB11D3C0040EE02 /* Module B */ = {
+			isa = PBXGroup;
+			children = (
+				AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */,
+			);
+			name = "Module B";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AD43CAD91AB109190040EE02 /* TeamBEN-A4-ObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD43CAFD1AB1091A0040EE02 /* Build configuration list for PBXNativeTarget "TeamBEN-A4-ObjC" */;
+			buildPhases = (
+				AD43CAD61AB109190040EE02 /* Sources */,
+				AD43CAD71AB109190040EE02 /* Frameworks */,
+				AD43CAD81AB109190040EE02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TeamBEN-A4-ObjC";
+			productName = "TeamBEN-A4-ObjC";
+			productReference = AD43CADA1AB109190040EE02 /* TeamBEN-A4-ObjC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AD43CAF21AB1091A0040EE02 /* TeamBEN-A4-ObjCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD43CB001AB1091A0040EE02 /* Build configuration list for PBXNativeTarget "TeamBEN-A4-ObjCTests" */;
+			buildPhases = (
+				AD43CAEF1AB1091A0040EE02 /* Sources */,
+				AD43CAF01AB1091A0040EE02 /* Frameworks */,
+				AD43CAF11AB1091A0040EE02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD43CAF51AB1091A0040EE02 /* PBXTargetDependency */,
+			);
+			name = "TeamBEN-A4-ObjCTests";
+			productName = "TeamBEN-A4-ObjCTests";
+			productReference = AD43CAF31AB1091A0040EE02 /* TeamBEN-A4-ObjCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD43CAD21AB109190040EE02 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Team B.E.N.";
+				TargetAttributes = {
+					AD43CAD91AB109190040EE02 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					AD43CAF21AB1091A0040EE02 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = AD43CAD91AB109190040EE02;
+					};
+				};
+			};
+			buildConfigurationList = AD43CAD51AB109190040EE02 /* Build configuration list for PBXProject "TeamBEN-A4-ObjC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD43CAD11AB109190040EE02;
+			productRefGroup = AD43CADB1AB109190040EE02 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD43CAD91AB109190040EE02 /* TeamBEN-A4-ObjC */,
+				AD43CAF21AB1091A0040EE02 /* TeamBEN-A4-ObjCTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AD43CAD81AB109190040EE02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD43CAE91AB109190040EE02 /* Main.storyboard in Resources */,
+				AD43CAEE1AB109190040EE02 /* LaunchScreen.xib in Resources */,
+				AD43CAEB1AB109190040EE02 /* Images.xcassets in Resources */,
+				AD43CB221AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard in Resources */,
+				AD43CB1F1AB11A620040EE02 /* ModuleA_Storyboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD43CAF11AB1091A0040EE02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD43CAD61AB109190040EE02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD43CB251AB11FB10040EE02 /* ModuleAViewController.mm in Sources */,
+				AD43CAE61AB109190040EE02 /* ViewController.mm in Sources */,
+				AD43CAE31AB109190040EE02 /* AppDelegate.m in Sources */,
+				AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */,
+				AD43CB191AB10A680040EE02 /* CvVideoCameraMod.m in Sources */,
+				AD43CAE01AB109190040EE02 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD43CAEF1AB1091A0040EE02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD43CAFA1AB1091A0040EE02 /* TeamBEN_A4_ObjCTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AD43CAF51AB1091A0040EE02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD43CAD91AB109190040EE02 /* TeamBEN-A4-ObjC */;
+			targetProxy = AD43CAF41AB1091A0040EE02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AD43CAE71AB109190040EE02 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD43CAE81AB109190040EE02 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AD43CAEC1AB109190040EE02 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD43CAED1AB109190040EE02 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AD43CAFB1AB1091A0040EE02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AD43CAFC1AB1091A0040EE02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AD43CAFE1AB1091A0040EE02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "TeamBEN-A4-ObjC/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AD43CAFF1AB1091A0040EE02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "TeamBEN-A4-ObjC/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AD43CB011AB1091A0040EE02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TeamBEN-A4-ObjCTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TeamBEN-A4-ObjC.app/TeamBEN-A4-ObjC";
+			};
+			name = Debug;
+		};
+		AD43CB021AB1091A0040EE02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TeamBEN-A4-ObjCTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TeamBEN-A4-ObjC.app/TeamBEN-A4-ObjC";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AD43CAD51AB109190040EE02 /* Build configuration list for PBXProject "TeamBEN-A4-ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD43CAFB1AB1091A0040EE02 /* Debug */,
+				AD43CAFC1AB1091A0040EE02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD43CAFD1AB1091A0040EE02 /* Build configuration list for PBXNativeTarget "TeamBEN-A4-ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD43CAFE1AB1091A0040EE02 /* Debug */,
+				AD43CAFF1AB1091A0040EE02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AD43CB001AB1091A0040EE02 /* Build configuration list for PBXNativeTarget "TeamBEN-A4-ObjCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD43CB011AB1091A0040EE02 /* Debug */,
+				AD43CB021AB1091A0040EE02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AD43CAD21AB109190040EE02 /* Project object */;
+}
