@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4942AC7B1AB9245B0051368D /* ModuleBViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4942AC7A1AB9245B0051368D /* ModuleBViewController.mm */; };
 		AD43CAE01AB109190040EE02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CADF1AB109190040EE02 /* main.m */; };
 		AD43CAE31AB109190040EE02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD43CAE21AB109190040EE02 /* AppDelegate.m */; };
 		AD43CAE61AB109190040EE02 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD43CAE51AB109190040EE02 /* ViewController.mm */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4942AC791AB9245B0051368D /* ModuleBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleBViewController.h; sourceTree = "<group>"; };
+		4942AC7A1AB9245B0051368D /* ModuleBViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModuleBViewController.mm; sourceTree = "<group>"; };
 		AD43CADA1AB109190040EE02 /* TeamBEN-A4-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TeamBEN-A4-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD43CADE1AB109190040EE02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD43CADF1AB109190040EE02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 		AD43CB201AB11D3C0040EE02 /* Module B */ = {
 			isa = PBXGroup;
 			children = (
+				4942AC791AB9245B0051368D /* ModuleBViewController.h */,
+				4942AC7A1AB9245B0051368D /* ModuleBViewController.mm */,
 				AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */,
 			);
 			name = "Module B";
@@ -304,6 +309,7 @@
 				AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */,
 				AD43CB191AB10A680040EE02 /* CvVideoCameraMod.m in Sources */,
 				AD43CAE01AB109190040EE02 /* main.m in Sources */,
+				4942AC7B1AB9245B0051368D /* ModuleBViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +510,7 @@
 				AD43CAFF1AB1091A0040EE02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD43CB001AB1091A0040EE02 /* Build configuration list for PBXNativeTarget "TeamBEN-A4-ObjCTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +519,7 @@
 				AD43CB021AB1091A0040EE02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
