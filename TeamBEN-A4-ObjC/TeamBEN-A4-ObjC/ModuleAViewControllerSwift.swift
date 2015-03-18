@@ -19,14 +19,14 @@ class ModuleAViewControllerSwift: UIViewController {
         self.view.backgroundColor = nil
         
         self.videoManager = VideoAnalgesic.sharedInstance
-        self.videoManager.setCameraPosition(AVCaptureDevicePosition.Front)
+        self.videoManager.setCameraPosition(AVCaptureDevicePosition.Back)
         
         let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyLow]
         
         let detector = CIDetector(ofType: CIDetectorTypeFace, context: self.videoManager.getCIContext(), options: optsDetector)
         
         var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
-        
+
         self.videoManager.start()
     }
     
