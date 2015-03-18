@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--ModuleA View Controller Swift-->
         <scene sceneID="D9H-PZ-awh">
             <objects>
-                <viewController storyboardIdentifier="ModuleA_MasterViewController" id="NMe-r3-50N" customClass="ModuleAViewControllerSwift" customModule="TeamBEN_A4_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ModuleA_MasterViewController2" id="NMe-r3-50N" customClass="ModuleAViewControllerSwift" customModule="TeamBEN_A4_ObjC" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Np3-0g-Ul6"/>
                         <viewControllerLayoutGuide type="bottom" id="Aec-o7-BVv"/>
@@ -26,9 +27,85 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VDe-aF-162" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187.73333333333332" y="345.5333333333333"/>
+            <point key="canvasLocation" x="-23" y="299"/>
+        </scene>
+        <!--ModuleA View Controller Swift-->
+        <scene sceneID="dOn-7u-lYN">
+            <objects>
+                <viewController storyboardIdentifier="ModuleA_MasterViewController" id="2E7-wv-cUi" customClass="ModuleAViewControllerSwift" customModule="TeamBEN_A4_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PHI-fT-ca4"/>
+                        <viewControllerLayoutGuide type="bottom" id="aDg-X0-sw6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="44J-7O-BJf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJr-29-yPZ">
+                                <rect key="frame" x="16" y="519" width="29" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="3Ok-ag-4XV"/>
+                                    <constraint firstAttribute="height" constant="41" id="KzC-Gb-GgM"/>
+                                </constraints>
+                                <state key="normal" title="Flash" image="white-lightning-md">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="flash:" destination="2E7-wv-cUi" eventType="touchUpInside" id="QrF-gR-Ika"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xb0-Hd-ncC">
+                                <rect key="frame" x="78" y="525" width="164" height="31"/>
+                                <connections>
+                                    <action selector="setFlashLevel:" destination="2E7-wv-cUi" eventType="valueChanged" id="q90-Du-PiU"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5T-Ca-DWj">
+                                <rect key="frame" x="262" y="525" width="42" height="35"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Dcb-2y-tjz"/>
+                                    <constraint firstAttribute="width" constant="42" id="zrd-8d-epp"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="-4"/>
+                                <state key="normal" title="Flip Camera" image="rotate_camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="switchCamera:" destination="2E7-wv-cUi" eventType="touchUpInside" id="hpb-mC-gvd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Xb0-Hd-ncC" firstAttribute="leading" secondItem="zJr-29-yPZ" secondAttribute="trailing" constant="35" id="3KZ-v2-z8q"/>
+                            <constraint firstItem="zJr-29-yPZ" firstAttribute="leading" secondItem="44J-7O-BJf" secondAttribute="leadingMargin" id="44L-JM-G9a"/>
+                            <constraint firstItem="aDg-X0-sw6" firstAttribute="top" secondItem="zJr-29-yPZ" secondAttribute="bottom" constant="8" id="Rsf-8r-SBC"/>
+                            <constraint firstItem="i5T-Ca-DWj" firstAttribute="leading" secondItem="Xb0-Hd-ncC" secondAttribute="trailing" constant="22" id="X9N-gp-MDF"/>
+                            <constraint firstItem="aDg-X0-sw6" firstAttribute="top" secondItem="Xb0-Hd-ncC" secondAttribute="bottom" constant="13" id="ZK0-mZ-Dgy"/>
+                            <constraint firstItem="i5T-Ca-DWj" firstAttribute="trailing" secondItem="44J-7O-BJf" secondAttribute="trailingMargin" id="iw0-0H-atd"/>
+                            <constraint firstItem="aDg-X0-sw6" firstAttribute="top" secondItem="i5T-Ca-DWj" secondAttribute="bottom" constant="8" id="r3G-eU-YlM"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="J8q-dp-AMO" appends="YES" id="sGg-cN-CdG"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uel-bX-X6W" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="J8q-dp-AMO">
+                    <connections>
+                        <action selector="panRecognized:" destination="2E7-wv-cUi" id="Mc9-Hv-88K"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="533" y="345"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="rotate_camera" width="282" height="298"/>
+        <image name="white-lightning-md" width="282" height="298"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
