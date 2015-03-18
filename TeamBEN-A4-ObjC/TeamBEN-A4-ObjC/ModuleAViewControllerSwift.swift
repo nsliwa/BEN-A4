@@ -27,18 +27,6 @@ class ModuleAViewControllerSwift: UIViewController {
         
         var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
         
-        /*
-        self.videoManager.setProcessingBlock({(imageInput) -> (CIImage) in
-        
-        var features = detector.featuresInImage(imageInput, options: optsFace)
-        var swappedPoint = CGPoint()
-        for f in features as [CIFaceFeature]{
-        swappedPoint.x = f.bounds
-        }
-        
-        }
-        */
-        
         self.videoManager.start()
     }
     

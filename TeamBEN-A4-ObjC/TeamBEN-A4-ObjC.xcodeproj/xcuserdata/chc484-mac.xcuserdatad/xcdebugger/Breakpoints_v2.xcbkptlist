@@ -19,5 +19,51 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+            timestampString = "448331021.524488"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "ModuleAViewControllerSwift"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TeamBEN_A4_ObjC.ModuleAViewControllerSwift.__deallocating_deinit"
+                  moduleName = "TeamBEN-A4-ObjC"
+                  urlString = "file:///Users/chc484-mac/Documents/BEN-A4/TeamBEN-A4-ObjC/TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+                  timestampString = "448331061.914369"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc TeamBEN_A4_ObjC.ModuleAViewControllerSwift.__ivar_destroyer"
+                  moduleName = "TeamBEN-A4-ObjC"
+                  urlString = "file:///Users/chc484-mac/Documents/BEN-A4/TeamBEN-A4-ObjC/TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+                  timestampString = "448331061.914668"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
