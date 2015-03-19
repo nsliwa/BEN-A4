@@ -19,7 +19,8 @@ class ModuleAViewControllerSwift: UIViewController {
         let rightEyeFilter :CIFilter = CIFilter(name: "CIRadialGradient")
         let mouthFilter :CIFilter = CIFilter(name: "CIRadialGradient")
         let blendFilter :CIFilter = CIFilter(name: "CIOverlayBlendMode")
-    
+        var flashToggled = false
+        var pictureTaken = false
     
 //        @IBAction func panRecognized(sender: AnyObject) {
 //            let point = sender.translationInView(self.view)
@@ -78,10 +79,18 @@ class ModuleAViewControllerSwift: UIViewController {
                 var rightEyePoint = CGPoint()
                 var mouthPoint = CGPoint()
                 
+                var numSmiles = 0
+                var numFeatures = 0
+                var eyesClosed = false
+                var rightBlinked = false
+                var leftBlinked = false
+                
                 for f in features as [CIFaceFeature]{
-                    var hasSmile = f.hasSmile ? "Yes" : "No"
+                    var hasSmile = f.hasSmile ? true : false
                     var eyeStatus = "None"
                     
+                    numFeatures++
+
                     var hasLeftEye = f.hasLeftEyePosition ? true : false
                     var hasRightEye = f.hasRightEyePosition ? true : false
                     var hasLeftEyeBlink = f.leftEyeClosed ? true : false
@@ -93,11 +102,23 @@ class ModuleAViewControllerSwift: UIViewController {
                     }
                     else if( hasLeftEyeBlink && hasRightEyeBlink ) {
                         eyeStatus = "Closed"
+                        eyesClosed = true
                     }
                     else if( hasRightEye && hasLeftEye ){
                         eyeStatus = "Open"
                     }
+
+                    if(hasSmile){
+                        numSmiles++
+                    }
                     
+                    if(hasLeftEyeBlink && !hasRightEyeBlink){
+                        leftBlinked = true
+                    }
+
+                    if(hasRightEyeBlink && !hasLeftEyeBlink){
+                        rightBlinked = true
+                    }
                     
 //                    NSLog("%d", f.hasSmile)
                     NSLog("Smile: %@, Eyes: %@",hasSmile, eyeStatus)
@@ -109,7 +130,7 @@ class ModuleAViewControllerSwift: UIViewController {
                     
                     self.filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
                     self.filter.setValue(2, forKey: "inputRadius")//f.bounds.width / 2, forKey: "inputRadius")
-                    
+                    /*
                     if(f.hasLeftEyePosition) {
                         leftEyePoint.x = f.leftEyePosition.x
                         leftEyePoint.y = f.leftEyePosition.y
@@ -145,7 +166,7 @@ class ModuleAViewControllerSwift: UIViewController {
                         self.blendFilter.setValue(self.mouthFilter.outputImage, forKey: kCIInputBackgroundImageKey)
                         img = self.blendFilter.outputImage
                     }
-                    
+                    */
                     NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
 //                    NSLog("mouth: %s, %s | left: %s, %s | right: %s, %s", mouthPoint.x, mouthPoint.y, leftEyePoint.x, leftEyePoint.y, rightEyePoint.x, rightEyePoint.y)
                     
@@ -157,6 +178,32 @@ class ModuleAViewControllerSwift: UIViewController {
     
                 NSLog("next image")
                 
+                if(numSmiles >= (numFeatures/2)){
+                    //Set bloom filter
+                }else{
+                    //Set gloom filter
+                }
+
+                if(rightBlinked  && !self.pictureTaken){
+                    //Take screenshot
+                    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, true, 1)
+                    self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+                    var viewImage = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext();
+                    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil)
+                    self.pictureTaken = true
+                }else if(!rightBlinked  && self.pictureTaken){
+                    self.pictureTaken = false
+                }
+
+                if(leftBlinked && !self.flashToggled){
+                    //Toggle flash
+                    self.videoManager.toggleFlash()
+                    self.flashToggled = true
+                }else if(!leftBlinked && self.flashToggled){
+                    self.flashToggled = false
+                }
+
                 self.filter.setValue(img, forKey: kCIInputImageKey)
                 return self.filter.outputImage
             })
