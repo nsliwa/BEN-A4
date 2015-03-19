@@ -73,10 +73,11 @@ class ModuleAViewControllerSwift: UIViewController {
                 context: self.videoManager.getCIContext(),
                 options: optsDetector)
     
-            var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation), CIDetectorSmile:true, CIDetectorEyeBlink:true]
+            
     
             self.videoManager.setProcessingBlock( { (imageInput) -> (CIImage) in
-    
+                var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation),
+                    CIDetectorSmile:true, CIDetectorEyeBlink:true]
                 var features = detector.featuresInImage(imageInput, options: optsFace)
                 var img = imageInput
                 
