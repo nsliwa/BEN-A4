@@ -15,6 +15,10 @@ class ModuleAViewControllerSwift: UIViewController {
         var videoManager : VideoAnalgesic! = nil
         var filters = [CIFilter]()
         let filter :CIFilter = CIFilter(name: "CIBumpDistortion")
+        let leftEyeFilter :CIFilter = CIFilter(name: "CIRadialGradient")
+        let rightEyeFilter :CIFilter = CIFilter(name: "CIRadialGradient")
+        let mouthFilter :CIFilter = CIFilter(name: "CIRadialGradient")
+        let blendFilter :CIFilter = CIFilter(name: "CIOverlayBlendMode")
     
     
 //        @IBAction func panRecognized(sender: AnyObject) {
@@ -45,28 +49,58 @@ class ModuleAViewControllerSwift: UIViewController {
             self.videoManager = VideoAnalgesic.sharedInstance
             self.videoManager.setCameraPosition(AVCaptureDevicePosition.Back)
     
-//            self.filter.setValue(-0.5, forKey: "inputScale")
             filter.setValue(5.0, forKey: "inputRadius")
-//            filter.setValue(1.0, forKey: "inputIntensity")
+            
+            leftEyeFilter.setValue(UIColor.yellowColor(), forKey: "inputColor0")
+            rightEyeFilter.setValue(UIColor.yellowColor(), forKey: "inputColor0")
+            mouthFilter.setValue(UIColor.yellowColor(), forKey: "inputColor0")
+            
+            leftEyeFilter.setValue(10, forKey: "inputRadius0")
+            rightEyeFilter.setValue(10, forKey: "inputRadius0")
+            mouthFilter.setValue(10, forKey: "inputRadius0")
     
-            let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyLow]
+            let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh]
     
             let detector = CIDetector(ofType: CIDetectorTypeFace,
                 context: self.videoManager.getCIContext(),
                 options: optsDetector)
     
-            var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)]
+            var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation), CIDetectorSmile:true, CIDetectorEyeBlink:true]
     
             self.videoManager.setProcessingBlock( { (imageInput) -> (CIImage) in
     
                 var features = detector.featuresInImage(imageInput, options: optsFace)
-                var swappedPoint = CGPoint()
                 var img = imageInput
-                var point0 = CGPoint()
-                var point1 = CGPoint()
+                
+                var swappedPoint = CGPoint()
+                
+                var leftEyePoint = CGPoint()
+                var rightEyePoint = CGPoint()
+                var mouthPoint = CGPoint()
                 
                 for f in features as [CIFaceFeature]{
-                    NSLog("%@",f)
+                    var hasSmile = f.hasSmile ? "Yes" : "No"
+                    var eyeStatus = "None"
+                    
+                    var hasLeftEye = f.hasLeftEyePosition ? true : false
+                    var hasRightEye = f.hasRightEyePosition ? true : false
+                    var hasLeftEyeBlink = f.leftEyeClosed ? true : false
+                    var hasRightEyeBlink = f.rightEyeClosed ? true : false
+                    
+                    
+                    if((hasLeftEye && !hasLeftEyeBlink && hasRightEyeBlink) || (hasRightEye && !hasRightEyeBlink && hasLeftEyeBlink)) {
+                        eyeStatus = "Wink"
+                    }
+                    else if( hasLeftEyeBlink && hasRightEyeBlink ) {
+                        eyeStatus = "Closed"
+                    }
+                    else if( hasRightEye && hasLeftEye ){
+                        eyeStatus = "Open"
+                    }
+                    
+                    
+//                    NSLog("%d", f.hasSmile)
+                    NSLog("Smile: %@, Eyes: %@",hasSmile, eyeStatus)
                     swappedPoint.x = f.bounds.midX
                     swappedPoint.y = f.bounds.midY
                     
@@ -74,9 +108,49 @@ class ModuleAViewControllerSwift: UIViewController {
 //                    point1.y = f.bounds.maxY
                     
                     self.filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
-//                    self.filter.setValue(CIVector(CGPoint: point1), forKey: "inputPoint1")
-                    self.filter.setValue(f.bounds.width / 2, forKey: "inputRadius")
-//                    self.filter.setValue(0, forKey: "inputRadius")
+                    self.filter.setValue(2, forKey: "inputRadius")//f.bounds.width / 2, forKey: "inputRadius")
+                    
+                    if(f.hasLeftEyePosition) {
+                        leftEyePoint.x = f.leftEyePosition.x
+                        leftEyePoint.y = f.leftEyePosition.y
+                        self.leftEyeFilter.setValue(CIVector(CGPoint: leftEyePoint), forKey: "inputCenter")
+                        self.leftEyeFilter.setValue(50, forKey: "inputRadius1")
+                        self.leftEyeFilter.setValue(UIColor.redColor(), forKey: "inputColor1")
+                        
+                        self.blendFilter.setValue(img, forKey: kCIInputImageKey)
+                        self.blendFilter.setValue(self.leftEyeFilter.outputImage, forKey: kCIInputBackgroundImageKey)
+                        img = self.blendFilter.outputImage
+                    }
+                    
+                    if(f.hasRightEyePosition) {
+                        rightEyePoint.x = f.rightEyePosition.x
+                        rightEyePoint.y = f.rightEyePosition.y
+                        self.rightEyeFilter.setValue(CIVector(CGPoint: rightEyePoint), forKey: "inputCenter")
+                        self.rightEyeFilter.setValue(50, forKey: "inputRadius1")
+                        self.rightEyeFilter.setValue(UIColor.blueColor(), forKey: "inputColor1")
+                        
+                        self.blendFilter.setValue(img, forKey: kCIInputImageKey)
+                        self.blendFilter.setValue(self.rightEyeFilter.outputImage, forKey: kCIInputBackgroundImageKey)
+                        img = self.blendFilter.outputImage
+                    }
+                    
+                    if(f.hasMouthPosition) {
+                        mouthPoint.x = f.mouthPosition.x
+                        mouthPoint.y = f.mouthPosition.y
+                        self.mouthFilter.setValue(CIVector(CGPoint: mouthPoint), forKey: "inputCenter")
+                        self.mouthFilter.setValue(50, forKey: "inputRadius1")
+                        self.mouthFilter.setValue(UIColor.greenColor(), forKey: "inputColor1")
+                        
+                        self.mouthFilter.setValue(img, forKey: kCIInputImageKey)
+                        self.blendFilter.setValue(self.mouthFilter.outputImage, forKey: kCIInputBackgroundImageKey)
+                        img = self.blendFilter.outputImage
+                    }
+                    
+                    NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
+//                    NSLog("mouth: %s, %s | left: %s, %s | right: %s, %s", mouthPoint.x, mouthPoint.y, leftEyePoint.x, leftEyePoint.y, rightEyePoint.x, rightEyePoint.y)
+                    
+                    
+                    
                     self.filter.setValue(img, forKey: kCIInputImageKey)
                     img = self.filter.outputImage
                 }

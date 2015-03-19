@@ -87,17 +87,9 @@
                             <constraint firstItem="i5T-Ca-DWj" firstAttribute="trailing" secondItem="44J-7O-BJf" secondAttribute="trailingMargin" id="iw0-0H-atd"/>
                             <constraint firstItem="aDg-X0-sw6" firstAttribute="top" secondItem="i5T-Ca-DWj" secondAttribute="bottom" constant="8" id="r3G-eU-YlM"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="J8q-dp-AMO" appends="YES" id="sGg-cN-CdG"/>
-                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uel-bX-X6W" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="J8q-dp-AMO">
-                    <connections>
-                        <action selector="panRecognized:" destination="2E7-wv-cUi" id="Mc9-Hv-88K"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="533" y="345"/>
         </scene>
