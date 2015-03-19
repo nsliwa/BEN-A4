@@ -11,20 +11,66 @@
 #import <opencv2/opencv.hpp>
 #import <opencv2/highgui/cap_ios.h>
 #import "CvVideoCameraMod.h"
+//#import "Novocaine.h"
+//#import "RingBuffer.h"
+
+#define kframesPerSecond 30
+#define kBufferLength 300
+#define kWindowLength 30
+
 using namespace cv;
 
 @interface ModuleBViewController () <CvVideoCameraDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) CvVideoCameraMod *videoCamera;
+@property (nonatomic) float upBeatIntensity;
+@property (nonatomic) float downBeatIntensity;
+@property (nonatomic) float *avgPixelIntensityBuffer;
+@property (nonatomic) int bufferIndex;
 
 @end
 
 @implementation ModuleBViewController
 
+//RingBuffer *ringBuffer;
+
+-(int)bufferIndex {
+    if(!_bufferIndex) {
+        _bufferIndex = 0;
+    }
+    
+    return _bufferIndex;
+}
+
+-(float*)avgPixelIntensityBuffer {
+    if(!_avgPixelIntensityBuffer) {
+        _avgPixelIntensityBuffer = (float*)calloc(kBufferLength, sizeof(float));
+    }
+    
+    return _avgPixelIntensityBuffer;
+}
+
+-(float)upBeatIntensity {
+    if(!_upBeatIntensity) {
+        _upBeatIntensity = 0.0;
+    }
+    
+    return _upBeatIntensity;
+}
+
+-(float)downBeatIntensity {
+    if(!_downBeatIntensity) {
+        _downBeatIntensity = 0.0;
+    }
+    
+    return _downBeatIntensity;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    //ringBuffer = new RingBuffer(kBufferLength, 2);
     
     self.videoCamera = [[CvVideoCameraMod alloc] initWithParentView:self.imageView];
     self.videoCamera.delegate = self;
@@ -37,6 +83,10 @@ using namespace cv;
     
     [self.videoCamera start];
     
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    
     AVCaptureDevice *device = nil;
     
     NSArray* allDevices = [AVCaptureDevice devices];
@@ -48,10 +98,23 @@ using namespace cv;
     if (self.videoCamera.defaultAVCaptureDevicePosition == AVCaptureDevicePositionBack && [device hasTorch]) {
         
         [device lockForConfiguration:nil];
-        [device setTorchMode: AVCaptureTorchModeOn];
+        [device setTorchMode: AVCaptureTorchModeOff];
         [device unlockForConfiguration];
         
     }
+    
+}
+
+-(void)dealloc{
+    
+    free(self.avgPixelIntensityBuffer);
+    
+    //delete ringBuffer;
+    
+    //ringBuffer = nil;
+    
+    
+    // ARC handles everything else, just clean up what we used c++ for (calloc, malloc, new)
     
 }
 
@@ -62,19 +125,99 @@ using namespace cv;
     
     // Do some OpenCV stuff with the image
     Mat image_copy;
-    Mat grayFrame, output;
+    Mat grayFrame, output1, output2;
     
     cvtColor(image, image_copy, CV_BGRA2BGR); // get rid of alpha for processing
     
     Scalar avgPixelIntensity = cv::mean( image_copy );
-        char text[50];
-        sprintf(text,"Avg. B: %.1f, G: %.1f,R: %.1f", avgPixelIntensity.val[0],avgPixelIntensity.val[1],avgPixelIntensity.val[2]);
-        cv::putText(image, text, cv::Point(10, 20), FONT_HERSHEY_PLAIN, 1, Scalar::all(255), 1,2);
-        NSLog(@"Avg B: %.1f, G: %.1f, R: %.1f", avgPixelIntensity.val[0], avgPixelIntensity.val[1], avgPixelIntensity.val[2]);
     
-    if(avgPixelIntensity.val[0] < 75.0 && avgPixelIntensity.val[1] < 75.0) {
-        NSLog(@"Object detected");
+    char text[50];
+    sprintf(text,"R: %.1f", avgPixelIntensity.val[2]);
+    cv::putText(image, text, cv::Point(10, 20), FONT_HERSHEY_PLAIN, 1, Scalar::all(255), 1,2);
+    
+    
+    float max = 0.0;
+    float tempMax = 0.0;
+    int tempMaxIndex = 0;
+    int maxIndex = 0;
+    
+    if(avgPixelIntensity.val[0] < 57.5 && avgPixelIntensity.val[1] < 74.5) {
+        AVCaptureDevice *device = nil;
+        
+        NSArray* allDevices = [AVCaptureDevice devices];
+        for (AVCaptureDevice* currentDevice in allDevices) {
+            if (currentDevice.position == AVCaptureDevicePositionBack) {
+                device = currentDevice;
+            }
+        }
+        if (self.videoCamera.defaultAVCaptureDevicePosition == AVCaptureDevicePositionBack && [device hasTorch]) {
+            
+            [device lockForConfiguration:nil];
+            [device setTorchMode: AVCaptureTorchModeOn];
+            [device unlockForConfiguration];
+            
+            if(self.bufferIndex < kBufferLength) {
+                self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
+                self.bufferIndex++;
+            }
+            else {
+                for(int i = 0; i < kBufferLength; i++){
+                    
+                    for(int j = 0; j < kWindowLength; j++){
+                        
+                        if(self.avgPixelIntensityBuffer[i+j] >= tempMax){
+                            tempMax = self.avgPixelIntensityBuffer[i+j];
+                            tempMaxIndex = j;
+                        }
+                        
+                    }
+                    
+                    if(tempMaxIndex == kWindowLength/2){
+                        if(tempMax >= max){
+                            max = tempMax;
+                            maxIndex = tempMaxIndex + i;
+                            NSLog(@"Heart Beat Detected!");
+                        }
+                        
+                    }
+                    
+                    tempMax = 0.0;
+                    
+                }
+                free(self.avgPixelIntensityBuffer);
+                
+                self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
+                self.bufferIndex = 0;
+            }
+            
+        }
+        
     }
+    
+    
+    //NSLog(@"R: %.1f", avgPixelIntensity.val[2]);
+    
+    //float intensity = avgPixelIntensity.val[2];
+        
+    /*if(avgPixelIntensity.val[0] < 75.0 && avgPixelIntensity.val[1] < 75.0) {
+        if(self.downBeatIntensity == 0.0 || self.upBeatIntensity == 0.0) {
+            self.downBeatIntensity = intensity;
+            self.upBeatIntensity = intensity;
+        }
+        else if(intensity >= self.downBeatIntensity && intensity >= self.upBeatIntensity) {
+            self.upBeatIntensity = intensity;
+        }
+        else if(intensity < self.downBeatIntensity && intensity < self.upBeatIntensity) {
+            self.downBeatIntensity = intensity;
+        }
+        else if(intensity > self.downBeatIntensity && intensity < self.upBeatIntensity) {
+            NSLog(@"Heart Beat Detected!");
+            self.downBeatIntensity = intensity;
+            self.upBeatIntensity = intensity;
+        }
+    }*/
+    
+    //4.566667 notifications per beat
     
     //    cvtColor(image_copy, image_copy, CV_BGR2HSV); // convert to hsv
     
