@@ -51,13 +51,17 @@ class ModuleAViewControllerSwift: UIViewController {
     
             filter.setValue(5.0, forKey: "inputRadius")
             
-            leftEyeFilter.setValue(UIColor.yellowColor(), forKey: "inputColor0")
-            rightEyeFilter.setValue(UIColor.yellowColor(), forKey: "inputColor0")
-            mouthFilter.setValue(UIColor.yellowColor(), forKey: "inputColor0")
+            leftEyeFilter.setValue(CIColor(CGColor: UIColor.clearColor().CGColor), forKey: "inputColor1")
+            rightEyeFilter.setValue(CIColor(CGColor: UIColor.clearColor().CGColor), forKey: "inputColor1")
+            mouthFilter.setValue(CIColor(CGColor: UIColor.clearColor().CGColor), forKey: "inputColor1")
             
-            leftEyeFilter.setValue(10, forKey: "inputRadius0")
-            rightEyeFilter.setValue(10, forKey: "inputRadius0")
-            mouthFilter.setValue(10, forKey: "inputRadius0")
+            leftEyeFilter.setValue(5, forKey: "inputRadius0")
+            rightEyeFilter.setValue(5, forKey: "inputRadius0")
+            mouthFilter.setValue(5, forKey: "inputRadius0")
+            
+            leftEyeFilter.setValue(CIColor(CGColor: UIColor.redColor().CGColor), forKey: "inputColor0")
+            rightEyeFilter.setValue(CIColor(CGColor: UIColor.blueColor().CGColor), forKey: "inputColor0")
+            mouthFilter.setValue(CIColor(CGColor: UIColor.greenColor().CGColor), forKey: "inputColor0")
     
             let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh]
     
@@ -108,17 +112,18 @@ class ModuleAViewControllerSwift: UIViewController {
 //                    point1.y = f.bounds.maxY
                     
                     self.filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
-                    self.filter.setValue(2, forKey: "inputRadius")//f.bounds.width / 2, forKey: "inputRadius")
+                    self.filter.setValue(f.bounds.width / 2, forKey: "inputRadius")
                     
                     if(f.hasLeftEyePosition) {
                         leftEyePoint.x = f.leftEyePosition.x
                         leftEyePoint.y = f.leftEyePosition.y
                         self.leftEyeFilter.setValue(CIVector(CGPoint: leftEyePoint), forKey: "inputCenter")
-                        self.leftEyeFilter.setValue(50, forKey: "inputRadius1")
-                        self.leftEyeFilter.setValue(UIColor.redColor(), forKey: "inputColor1")
+                        self.leftEyeFilter.setValue(10, forKey: "inputRadius1")
+                        
+                        var backgroundImg :CIImage = self.leftEyeFilter.outputImage
                         
                         self.blendFilter.setValue(img, forKey: kCIInputImageKey)
-                        self.blendFilter.setValue(self.leftEyeFilter.outputImage, forKey: kCIInputBackgroundImageKey)
+                        self.blendFilter.setValue(backgroundImg, forKey: kCIInputBackgroundImageKey)
                         img = self.blendFilter.outputImage
                     }
                     
@@ -126,11 +131,13 @@ class ModuleAViewControllerSwift: UIViewController {
                         rightEyePoint.x = f.rightEyePosition.x
                         rightEyePoint.y = f.rightEyePosition.y
                         self.rightEyeFilter.setValue(CIVector(CGPoint: rightEyePoint), forKey: "inputCenter")
-                        self.rightEyeFilter.setValue(50, forKey: "inputRadius1")
-                        self.rightEyeFilter.setValue(UIColor.blueColor(), forKey: "inputColor1")
+                        self.rightEyeFilter.setValue(10, forKey: "inputRadius1")
+//                        self.rightEyeFilter.setValue(UIColor.blueColor().CIColor, forKey: "inputColor1")
+                        
+                        var backgroundImg :CIImage = self.rightEyeFilter.outputImage
                         
                         self.blendFilter.setValue(img, forKey: kCIInputImageKey)
-                        self.blendFilter.setValue(self.rightEyeFilter.outputImage, forKey: kCIInputBackgroundImageKey)
+                        self.blendFilter.setValue(backgroundImg, forKey: kCIInputBackgroundImageKey)
                         img = self.blendFilter.outputImage
                     }
                     
@@ -138,11 +145,13 @@ class ModuleAViewControllerSwift: UIViewController {
                         mouthPoint.x = f.mouthPosition.x
                         mouthPoint.y = f.mouthPosition.y
                         self.mouthFilter.setValue(CIVector(CGPoint: mouthPoint), forKey: "inputCenter")
-                        self.mouthFilter.setValue(50, forKey: "inputRadius1")
-                        self.mouthFilter.setValue(UIColor.greenColor(), forKey: "inputColor1")
+                        self.mouthFilter.setValue(10, forKey: "inputRadius1")
+//                        self.mouthFilter.setValue(UIColor.greenColor().CIColor, forKey: "inputColor1")
                         
-                        self.mouthFilter.setValue(img, forKey: kCIInputImageKey)
-                        self.blendFilter.setValue(self.mouthFilter.outputImage, forKey: kCIInputBackgroundImageKey)
+                        var backgroundImg :CIImage = self.mouthFilter.outputImage
+                        
+                        self.blendFilter.setValue(img, forKey: kCIInputImageKey)
+                        self.blendFilter.setValue(backgroundImg , forKey: kCIInputBackgroundImageKey)
                         img = self.blendFilter.outputImage
                     }
                     
