@@ -19,7 +19,7 @@ class ModuleAViewControllerSwift: UIViewController {
         let rightEyeFilter :CIFilter = CIFilter(name: "CIRadialGradient")
         let mouthFilter :CIFilter = CIFilter(name: "CIRadialGradient")
         let blendFilter :CIFilter = CIFilter(name: "CIOverlayBlendMode")
-        let gloomFilter :CIFilter = CIFilter(name: "CIPinchDistortion")
+        let gloomFilter :CIFilter = CIFilter(name: "CIGloom")//"CIPinchDistortion")
         let bloomFilter :CIFilter = CIFilter(name: "CIBloom")
 
         var flashToggled = false
@@ -67,7 +67,7 @@ class ModuleAViewControllerSwift: UIViewController {
             rightEyeFilter.setValue(CIColor(CGColor: UIColor.blueColor().CGColor), forKey: "inputColor0")
             mouthFilter.setValue(CIColor(CGColor: UIColor.greenColor().CGColor), forKey: "inputColor0")
     
-            let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh]
+            let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh, CIDetectorTracking:true]
     
             let detector = CIDetector(ofType: CIDetectorTypeFace,
                 context: self.videoManager.getCIContext(),
@@ -92,6 +92,9 @@ class ModuleAViewControllerSwift: UIViewController {
                 var rightBlinked = false
                 var leftBlinked = false
                 
+                var leftBlinkIds = [Int: Bool]()
+                var rightBlinkIds = [Int: Bool]()
+                
                 for f in features as [CIFaceFeature]{
                     var hasSmile = f.hasSmile ? true : false
                     var eyeStatus = "None"
@@ -106,8 +109,15 @@ class ModuleAViewControllerSwift: UIViewController {
                     
                     if((hasLeftEye && !hasLeftEyeBlink && hasRightEyeBlink) || (hasRightEye && !hasRightEyeBlink && hasLeftEyeBlink)) {
                         eyeStatus = "Wink"
+                        if(leftBlinkIds[Int(f.trackingID)] == nil || leftBlinkIds[Int(f.trackingID)] == false) {
+                            leftBlinkIds[Int(f.trackingID)] = true
+                            leftBlinked = true
+                        }
                     }
-                    else if( hasLeftEyeBlink && hasRightEyeBlink ) {
+                    else {
+                        leftBlinkIds[Int(f.trackingID)] = false
+                    }
+                    if( hasLeftEyeBlink && hasRightEyeBlink ) {
                         eyeStatus = "Closed"
                         eyesClosed = true
                     }
@@ -118,17 +128,30 @@ class ModuleAViewControllerSwift: UIViewController {
                     if(hasSmile){
                         numSmiles++
                     }
+//                    
+//                    if(hasLeftEyeBlink && !hasRightEyeBlink){
+//                        if(leftBlinkIds[Int(f.trackingID)] == nil || leftBlinkIds[Int(f.trackingID)] == false) {
+//                            leftBlinkIds[Int(f.trackingID)] = true
+//                            leftBlinked = true
+//                        }
+//                    }
+//                    else {
+//                        leftBlinkIds[Int(f.trackingID)] = false
+//                    }
+//
+//                    if(hasRightEyeBlink && !hasLeftEyeBlink){
+//                        if(rightBlinkIds[Int(f.trackingID)] == nil || rightBlinkIds[Int(f.trackingID)] == false) {
+//                            rightBlinkIds[Int(f.trackingID)] = true
+//                            rightBlinked = true
+//                        }
+//                    }
+//                    else {
+//                        rightBlinkIds[Int(f.trackingID)] = false
+//                    }
                     
-                    if(hasLeftEyeBlink && !hasRightEyeBlink){
-                        leftBlinked = true
-                    }
-
-                    if(hasRightEyeBlink && !hasLeftEyeBlink){
-                        rightBlinked = true
-                    }
                     
 //                    NSLog("%d", f.hasSmile)
-                    NSLog("Smile: %@, Eyes: %@",hasSmile, eyeStatus)
+                    NSLog("ID: %d, Smile: %@, Eyes: %@",f.trackingID, hasSmile, eyeStatus)
                     swappedPoint.x = f.bounds.midX
                     swappedPoint.y = f.bounds.midY
                     
@@ -179,8 +202,8 @@ class ModuleAViewControllerSwift: UIViewController {
                         self.blendFilter.setValue(backgroundImg , forKey: kCIInputBackgroundImageKey)
                         img = self.blendFilter.outputImage
                     }
-
-                    NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
+                    NSLog("left: %d | right: %d | missing: %d", Int(hasLeftEyeBlink), Int(hasRightEyeBlink), Int(!hasLeftEye | !hasRightEye) )
+//                    NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
 //                    NSLog("mouth: %s, %s | left: %s, %s | right: %s, %s", mouthPoint.x, mouthPoint.y, leftEyePoint.x, leftEyePoint.y, rightEyePoint.x, rightEyePoint.y)
                     
                     
@@ -219,8 +242,8 @@ class ModuleAViewControllerSwift: UIViewController {
                     self.flashToggled = false
                 }
 
-                self.filter.setValue(img, forKey: kCIInputImageKey)
-                return self.filter.outputImage
+//                self.filter.setValue(img, forKey: kCIInputImageKey)
+                return img//self.filter.outputImage
             })
 
     
