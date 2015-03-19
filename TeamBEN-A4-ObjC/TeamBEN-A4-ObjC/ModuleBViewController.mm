@@ -184,14 +184,10 @@ using namespace cv;
                         }
                         
                         if(tempMaxIndex == (kWindowLength/2)-1){
-                            if(tempMax >= max){
-                                max = tempMax;
-                                maxIndex = tempMaxIndex + i;
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     self.numBeats++;
+                                   NSLog(@"%d",self.numBeats);
                                 });
-                            }
-                            
                         }
                         
                         tempMax = 0.0;
@@ -305,7 +301,7 @@ using namespace cv;
     //    
     //    cvtColor(image_copy, image_copy, CV_HSV2BGR);
     //    cvtColor(image_copy, image, CV_BGR2BGRA);
-    NSLog(@"%d", self.numBeats);
+//    NSLog(@"%d", self.numBeats);
 }
 #endif
 
