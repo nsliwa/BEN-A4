@@ -16,7 +16,7 @@
 
 #define kframesPerSecond 30
 #define kBufferLength 300
-#define kWindowLength 30
+#define kWindowLength 10
 
 using namespace cv;
 
@@ -28,12 +28,21 @@ using namespace cv;
 @property (nonatomic) float downBeatIntensity;
 @property (nonatomic) float *avgPixelIntensityBuffer;
 @property (nonatomic) int bufferIndex;
+@property (nonatomic) int numBeats;
 
 @end
 
 @implementation ModuleBViewController
 
 //RingBuffer *ringBuffer;
+
+-(int)numBeats{
+    if(!_numBeats) {
+        _numBeats = 0;
+    }
+    
+    return _numBeats;
+}
 
 -(int)bufferIndex {
     if(!_bufferIndex) {
@@ -135,12 +144,6 @@ using namespace cv;
     sprintf(text,"R: %.1f", avgPixelIntensity.val[2]);
     cv::putText(image, text, cv::Point(10, 20), FONT_HERSHEY_PLAIN, 1, Scalar::all(255), 1,2);
     
-    
-    float max = 0.0;
-    float tempMax = 0.0;
-    int tempMaxIndex = 0;
-    int maxIndex = 0;
-    
     if(avgPixelIntensity.val[0] < 57.5 && avgPixelIntensity.val[1] < 74.5) {
         AVCaptureDevice *device = nil;
         
@@ -161,33 +164,47 @@ using namespace cv;
                 self.bufferIndex++;
             }
             else {
-                for(int i = 0; i < kBufferLength; i++){
-                    
-                    for(int j = 0; j < kWindowLength; j++){
-                        
-                        if(self.avgPixelIntensityBuffer[i+j] >= tempMax){
-                            tempMax = self.avgPixelIntensityBuffer[i+j];
-                            tempMaxIndex = j;
-                        }
-                        
-                    }
-                    
-                    if(tempMaxIndex == kWindowLength/2){
-                        if(tempMax >= max){
-                            max = tempMax;
-                            maxIndex = tempMaxIndex + i;
-                            NSLog(@"Heart Beat Detected!");
-                        }
-                        
-                    }
-                    
-                    tempMax = 0.0;
-                    
-                }
-                free(self.avgPixelIntensityBuffer);
+                dispatch_queue_t newQueue = dispatch_queue_create("New Queue", NULL);
                 
-                self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
-                self.bufferIndex = 0;
+                dispatch_async(newQueue, ^{
+                    float max = 0.0;
+                    float tempMax = 0.0;
+                    int tempMaxIndex = 0;
+                    int maxIndex = 0;
+                    
+                    for(int i = 0; i < kBufferLength; i++){
+                        
+                        for(int j = 0; j < kWindowLength; j++){
+                            
+                            if(self.avgPixelIntensityBuffer[i+j] >= tempMax){
+                                tempMax = self.avgPixelIntensityBuffer[i+j];
+                                tempMaxIndex = j;
+                            }
+                            
+                        }
+                        
+                        if(tempMaxIndex == (kWindowLength/2)-1){
+                            if(tempMax >= max){
+                                max = tempMax;
+                                maxIndex = tempMaxIndex + i;
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    self.numBeats++;
+                                });
+                            }
+                            
+                        }
+                        
+                        tempMax = 0.0;
+                        
+                    }
+                    
+                    
+                    free(self.avgPixelIntensityBuffer);
+                    
+                    self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
+                    self.bufferIndex = 0;
+                });
+
             }
             
         }
@@ -288,6 +305,7 @@ using namespace cv;
     //    
     //    cvtColor(image_copy, image_copy, CV_HSV2BGR);
     //    cvtColor(image_copy, image, CV_BGR2BGRA);
+    NSLog(@"%d", self.numBeats);
 }
 #endif
 
