@@ -19,6 +19,7 @@ using namespace cv;
 
 @interface ModuleBViewController () <CvVideoCameraDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) CvVideoCameraMod *videoCamera;
 @property (nonatomic) float upBeatIntensity;
@@ -31,6 +32,8 @@ using namespace cv;
 @end
 
 @implementation ModuleBViewController
+
+NSTimer *t;
 
 -(bool)stopProcessing {
     if(!_stopProcessing) {
@@ -96,12 +99,6 @@ using namespace cv;
     
     [self.videoCamera start];
     
-    [NSTimer scheduledTimerWithTimeInterval: 60.0
-            target: self
-            selector:@selector(printNumBeats:)
-            userInfo: nil
-            repeats:NO];
-    
     
 }
 
@@ -157,6 +154,14 @@ using namespace cv;
             [device lockForConfiguration:nil];
             [device setTorchMode: AVCaptureTorchModeOn];
             [device unlockForConfiguration];
+            
+            if(t == nil) {
+                t = [NSTimer scheduledTimerWithTimeInterval: 60.0
+                            target: self
+                            selector:@selector(printNumBeats:)
+                            userInfo: nil
+                            repeats:NO];
+            }
             
             if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil && !self.stopProcessing) {
                 self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
