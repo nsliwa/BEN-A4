@@ -12,7 +12,7 @@
 #import <opencv2/highgui/cap_ios.h>
 #import "CvVideoCameraMod.h"
 
-#define kBufferLength 600
+#define kBufferLength 6000
 #define kWindowLength 20
 
 using namespace cv;
@@ -26,12 +26,21 @@ using namespace cv;
 @property (nonatomic) float *avgPixelIntensityBuffer;
 @property (nonatomic) int bufferIndex;
 @property (nonatomic) int numBeats;
+@property (nonatomic) bool stopProcessing;
 
 @end
 
 @implementation ModuleBViewController
 
--(int)numBeats{
+-(bool)stopProcessing {
+    if(!_stopProcessing) {
+        _stopProcessing = false;
+    }
+    
+    return _stopProcessing;
+}
+
+-(int)numBeats {
     if(!_numBeats) {
         _numBeats = 0;
     }
@@ -86,6 +95,13 @@ using namespace cv;
     self.videoCamera.grayscaleMode = NO;
     
     [self.videoCamera start];
+    
+    [NSTimer scheduledTimerWithTimeInterval: 60.0
+            target: self
+            selector:@selector(printNumBeats:)
+            userInfo: nil
+            repeats:NO];
+    
     
 }
 
@@ -142,72 +158,55 @@ using namespace cv;
             [device setTorchMode: AVCaptureTorchModeOn];
             [device unlockForConfiguration];
             
-            if(self.bufferIndex < kBufferLength) {
+            if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil && !self.stopProcessing) {
                 self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
                 self.bufferIndex++;
-            }
-            else {
-                dispatch_queue_t newQueue = dispatch_queue_create("New Queue", NULL);
-                
-                dispatch_async(newQueue, ^{
-                    float tempMax = 0.0;
-                    int tempMaxIndex = 0;
-                    
-                    for(int i = 0; i < kBufferLength; i++) {
-                        
-                        for(int j = 0; j < kWindowLength; j++) {
-                            
-                            if(self.avgPixelIntensityBuffer[i+j] >= tempMax && self.avgPixelIntensityBuffer[i+j] > 170) {
-                                tempMax = self.avgPixelIntensityBuffer[i+j];
-                                tempMaxIndex = j;
-                            }
-                            
-                        }
-                        
-                        if(tempMaxIndex == (kWindowLength/2)-1) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                self.numBeats++;
-                                NSLog(@"%d",self.numBeats);
-                            });
-                        }
-                        
-                        tempMax = 0.0;
-                        
-                    }
-                    
-                    
-                    free(self.avgPixelIntensityBuffer);
-                    
-                    self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
-                    self.bufferIndex = 0;
-                });
-
             }
             
         }
         
     }
     
-    /*else {
-        AVCaptureDevice *device = nil;
-        
-        NSArray* allDevices = [AVCaptureDevice devices];
-        for (AVCaptureDevice* currentDevice in allDevices) {
-            if (currentDevice.position == AVCaptureDevicePositionBack) {
-                device = currentDevice;
-            }
-        }
-        if (self.videoCamera.defaultAVCaptureDevicePosition == AVCaptureDevicePositionBack && [device hasTorch]) {
-            
-            [device lockForConfiguration:nil];
-            [device setTorchMode: AVCaptureTorchModeOff];
-            [device unlockForConfiguration];
-        }
-    }*/
-    
     cvtColor(image_copy, image, CV_BGR2BGRA); //add back for display
 
 }
 #endif
+
+-(void)printNumBeats: (NSTimer*) timer {
+    
+    self.stopProcessing = true;
+    
+    float tempMax = 0.0;
+    int tempMaxIndex = 0;
+    
+    for(int i = 0; i < kBufferLength; i++) {
+        
+        for(int j = 0; j < kWindowLength; j++) {
+            
+            if(self.avgPixelIntensityBuffer[i+j] >= tempMax && self.avgPixelIntensityBuffer[i+j] > 170) {
+                tempMax = self.avgPixelIntensityBuffer[i+j];
+                tempMaxIndex = j;
+            }
+            
+        }
+        
+        if(tempMaxIndex == (kWindowLength/2)-1) {
+            //dispatch_async(dispatch_get_main_queue(), ^{
+                self.numBeats++;
+            //});
+        }
+        
+        tempMax = 0.0;
+        
+    }
+    NSLog(@"%d", self.numBeats);
+    
+    self.numBeats = 0;
+    
+    free(self.avgPixelIntensityBuffer);
+    
+    self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
+    self.bufferIndex = 0;
+}
 
 @end
