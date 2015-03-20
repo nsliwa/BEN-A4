@@ -42,44 +42,45 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJr-29-yPZ">
-                                <rect key="frame" x="16" y="519" width="29" height="41"/>
+                                <rect key="frame" x="16" y="519" width="41" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="29" id="3Ok-ag-4XV"/>
+                                    <constraint firstAttribute="width" constant="41" id="3Ok-ag-4XV"/>
                                     <constraint firstAttribute="height" constant="41" id="KzC-Gb-GgM"/>
                                 </constraints>
-                                <state key="normal" title="Flash" image="white-lightning-md">
+                                <state key="normal" title="Settings" image="settings2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="flash:" destination="2E7-wv-cUi" eventType="touchUpInside" id="QrF-gR-Ika"/>
+                                    <action selector="onClickSettings:" destination="2E7-wv-cUi" eventType="touchUpInside" id="2JT-2U-HPz"/>
+                                    <segue destination="sFR-AV-6gS" kind="modal" id="iNE-ap-GxX"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xb0-Hd-ncC">
+                            <slider opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xb0-Hd-ncC">
                                 <rect key="frame" x="78" y="525" width="164" height="31"/>
                                 <connections>
-                                    <action selector="setFlashLevel:" destination="2E7-wv-cUi" eventType="valueChanged" id="q90-Du-PiU"/>
+                                    <action selector="onSliderChanged:" destination="2E7-wv-cUi" eventType="valueChanged" id="5bK-cF-x9l"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5T-Ca-DWj">
                                 <rect key="frame" x="262" y="525" width="42" height="35"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Dcb-2y-tjz"/>
                                     <constraint firstAttribute="width" constant="42" id="zrd-8d-epp"/>
                                 </constraints>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="-4"/>
-                                <state key="normal" title="Flip Camera" image="rotate_camera">
+                                <state key="normal" title="Flip Camera" image="rotate-camera2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="switchCamera:" destination="2E7-wv-cUi" eventType="touchUpInside" id="hpb-mC-gvd"/>
+                                    <action selector="onClickToggleOrientation:" destination="2E7-wv-cUi" eventType="touchUpInside" id="z7w-5f-92l"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Xb0-Hd-ncC" firstAttribute="leading" secondItem="zJr-29-yPZ" secondAttribute="trailing" constant="35" id="3KZ-v2-z8q"/>
+                            <constraint firstItem="Xb0-Hd-ncC" firstAttribute="leading" secondItem="zJr-29-yPZ" secondAttribute="trailing" constant="23" id="3KZ-v2-z8q"/>
                             <constraint firstItem="zJr-29-yPZ" firstAttribute="leading" secondItem="44J-7O-BJf" secondAttribute="leadingMargin" id="44L-JM-G9a"/>
                             <constraint firstItem="aDg-X0-sw6" firstAttribute="top" secondItem="zJr-29-yPZ" secondAttribute="bottom" constant="8" id="Rsf-8r-SBC"/>
                             <constraint firstItem="i5T-Ca-DWj" firstAttribute="leading" secondItem="Xb0-Hd-ncC" secondAttribute="trailing" constant="22" id="X9N-gp-MDF"/>
@@ -93,10 +94,94 @@
             </objects>
             <point key="canvasLocation" x="533" y="345"/>
         </scene>
+        <!--ModuleA Settings View Controller-->
+        <scene sceneID="Zwf-T0-i5s">
+            <objects>
+                <viewController storyboardIdentifier="Settings" id="sFR-AV-6gS" customClass="ModuleA_SettingsViewController" customModule="TeamBEN_A4_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dps-bg-OFp"/>
+                        <viewControllerLayoutGuide type="bottom" id="NfH-F1-m1p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5jY-PQ-M6V">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wink Photo Capture" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMH-rA-r6I">
+                                <rect key="frame" x="23" y="44" width="155" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blink Flash" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-Pa-8aQ">
+                                <rect key="frame" x="23" y="89" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Smile Effect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sG-Sl-KNv">
+                                <rect key="frame" x="23" y="137" width="92" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Face Identification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F5c-h7-5bF">
+                                <rect key="frame" x="23" y="183" width="141" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2n-A0-KMQ">
+                                <rect key="frame" x="243" y="44" width="51" height="31"/>
+                                <connections>
+                                    <action selector="winkActionToggled:" destination="sFR-AV-6gS" eventType="valueChanged" id="jVP-p8-PsP"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PX3-eB-yfo">
+                                <rect key="frame" x="243" y="89" width="51" height="31"/>
+                                <connections>
+                                    <action selector="blinkActionToggled:" destination="sFR-AV-6gS" eventType="valueChanged" id="WbV-Vq-SED"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Ur-ML-GpV">
+                                <rect key="frame" x="243" y="137" width="51" height="31"/>
+                                <connections>
+                                    <action selector="smileEffectToggled:" destination="sFR-AV-6gS" eventType="valueChanged" id="DmA-2r-4sj"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lrX-el-yf5">
+                                <rect key="frame" x="243" y="183" width="51" height="31"/>
+                                <connections>
+                                    <action selector="faceIdentificationToggled:" destination="sFR-AV-6gS" eventType="valueChanged" id="53P-eV-Mld"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deM-Zh-Vw6">
+                                <rect key="frame" x="137" y="300" width="37" height="30"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="DoV-XL-jYe" kind="unwind" unwindAction="updateSettings:" id="scx-12-azP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="switchBlinkAction" destination="PX3-eB-yfo" id="qLl-Wu-d4I"/>
+                        <outlet property="switchFaceIdentification" destination="lrX-el-yf5" id="57T-ih-ZuD"/>
+                        <outlet property="switchSmileEffect" destination="3Ur-ML-GpV" id="Thg-yY-PNk"/>
+                        <outlet property="switchWinkAction" destination="C2n-A0-KMQ" id="VhB-Cn-Rhh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9nG-e9-KmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DoV-XL-jYe" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="923" y="353"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="rotate_camera" width="282" height="298"/>
-        <image name="white-lightning-md" width="282" height="298"/>
+        <image name="rotate-camera2" width="128" height="128"/>
+        <image name="settings2" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
