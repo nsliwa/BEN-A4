@@ -24,6 +24,7 @@ class ModuleAViewControllerSwift: UIViewController {
 
         var flashToggled = false
         var pictureTaken = false
+        var eyesClosedCounter = 0
     
 //        @IBAction func panRecognized(sender: AnyObject) {
 //            let point = sender.translationInView(self.view)
@@ -67,7 +68,7 @@ class ModuleAViewControllerSwift: UIViewController {
             rightEyeFilter.setValue(CIColor(CGColor: UIColor.blueColor().CGColor), forKey: "inputColor0")
             mouthFilter.setValue(CIColor(CGColor: UIColor.greenColor().CGColor), forKey: "inputColor0")
     
-            let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyHigh, CIDetectorTracking:true]
+            let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyLow, CIDetectorTracking:true]
     
             let detector = CIDetector(ofType: CIDetectorTypeFace,
                 context: self.videoManager.getCIContext(),
@@ -107,25 +108,18 @@ class ModuleAViewControllerSwift: UIViewController {
                     var hasLeftEyeBlink = f.leftEyeClosed ? true : false
                     var hasRightEyeBlink = f.rightEyeClosed ? true : false
                     
-                    
-                    if((hasLeftEye && !hasLeftEyeBlink && hasRightEyeBlink) || (hasRightEye && !hasRightEyeBlink && hasLeftEyeBlink)) {
-                        eyeStatus = "Wink"
-                        if(leftBlinkIds[Int(f.trackingID)] == nil || leftBlinkIds[Int(f.trackingID)] == false) {
-                            leftBlinkIds[Int(f.trackingID)] = true
-                            leftBlinked = true
-                        }
-                    }
-                    else {
-                        leftBlinkIds[Int(f.trackingID)] = false
-                    }
-                    if( hasLeftEyeBlink && hasRightEyeBlink ) {
+                    if(hasLeftEyeBlink && hasRightEyeBlink && hasRightEye && hasLeftEye) {
                         eyeStatus = "Closed"
                         eyesClosed = true
                     }
                     else if( hasRightEye && hasLeftEye ){
                         eyeStatus = "Open"
                     }
-
+                    
+                    if(hasRightEyeBlink && !hasLeftEyeBlink){
+                        rightBlinked = true
+                    }
+                    
                     if(hasSmile){
                         numSmiles++
                     }
@@ -225,24 +219,27 @@ class ModuleAViewControllerSwift: UIViewController {
 
                 if(rightBlinked  && !self.pictureTaken){
                     //Take screenshot
-                    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, true, 1)
-                    self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
-                    var viewImage = UIGraphicsGetImageFromCurrentImageContext()
-                    UIGraphicsEndImageContext();
+                    var viewImage = self.screenshot()
                     UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil)
                     self.pictureTaken = true
                 }else if(!rightBlinked  && self.pictureTaken){
                     self.pictureTaken = false
                 }
 
-                if(leftBlinked && !self.flashToggled){
+                if(eyesClosed && !self.flashToggled){
                     //Toggle flash
-                    self.videoManager.toggleFlash()
-                    self.flashToggled = true
-                }else if(!leftBlinked && self.flashToggled){
+                    self.eyesClosedCounter++
+                    if(self.eyesClosedCounter > 4){
+                        if(self.videoManager.toggleFlash()){
+                            self.videoManager.turnOnFlashwithLevel(0.1)
+                        }
+                        self.flashToggled = true
+                    }
+                }else if(!eyesClosed){
                     self.flashToggled = false
+                    self.eyesClosedCounter = 0
                 }
-
+                
 //                self.filter.setValue(img, forKey: kCIInputImageKey)
                 return img//self.filter.outputImage
             })
@@ -255,6 +252,37 @@ class ModuleAViewControllerSwift: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         self.videoManager.stop()
     }
+    /*
+    func takePhoto(){
+        var picker = UIImagePickerController.self
+        picker.delegate = self
+        picker.allowsEditing = YES
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera
+        
+    }
+    */
     
+
+    func screenshot() -> UIImage
+    {
     
+    //CGRect rect;
+    let rect = CGRectMake(0, 0, 320, 480);
+    UIGraphicsBeginImageContext(rect.size);
+    
+    //CGContextRef context=UIGraphicsGetCurrentContext();
+    let context = UIGraphicsGetCurrentContext()
+    
+    self.view.layer.renderInContext(context)
+        
+    //[self.view.layer renderInContext:context];
+    
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+    //UIImage *image=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+    }
+
 }

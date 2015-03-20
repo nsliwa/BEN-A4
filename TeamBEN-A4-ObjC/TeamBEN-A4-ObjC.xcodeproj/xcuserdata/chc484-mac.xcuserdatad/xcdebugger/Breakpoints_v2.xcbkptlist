@@ -72,13 +72,107 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
-            timestampString = "448434884.17398"
+            timestampString = "448507951.713425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+            timestampString = "448507951.713425"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "ModuleAViewControllerSwift"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+            timestampString = "448507951.713425"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+            timestampString = "448507951.713425"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+            timestampString = "448507951.713425"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TeamBEN_A4_ObjC.ModuleAViewControllerSwift.(viewDidLoad (TeamBEN_A4_ObjC.ModuleAViewControllerSwift) -&gt; () -&gt; ()).(closure #1) with unmangled suffix &quot;_promote0&quot;"
+                  moduleName = "TeamBEN-A4-ObjC"
+                  urlString = "file:///Users/chc484-mac/Documents/BEN-A4/TeamBEN-A4-ObjC/TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+                  timestampString = "448507951.873603"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "219"
+                  endingLineNumber = "219"
+                  offsetFromSymbolStart = "15960">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TeamBEN_A4_ObjC.ModuleAViewControllerSwift.(viewDidLoad (TeamBEN_A4_ObjC.ModuleAViewControllerSwift) -&gt; () -&gt; ()).(closure #1) with unmangled suffix &quot;_promote0&quot;"
+                  moduleName = "TeamBEN-A4-ObjC"
+                  urlString = "file:///Users/chc484-mac/Documents/BEN-A4/TeamBEN-A4-ObjC/TeamBEN-A4-ObjC/ModuleAViewControllerSwift.swift"
+                  timestampString = "448507951.873975"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "219"
+                  endingLineNumber = "219"
+                  offsetFromSymbolStart = "16060">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
