@@ -26,6 +26,9 @@ class ModuleAViewControllerSwift: UIViewController {
     var faceIdentificationEnabled :Bool!
     var winkActionEnabled :Bool!
     var blinkActionEnabled :Bool!
+    
+    var filterRadius :Float = 0.5
+    
     var flashToggled = false
     var pictureTaken = false
     var eyesClosedCounter = 0
@@ -186,9 +189,10 @@ class ModuleAViewControllerSwift: UIViewController {
                     
                     //                    point1.x = f.bounds.maxX
                     //                    point1.y = f.bounds.maxY
+                    var radius = Float(f.bounds.width) * self.filterRadius
                     
                     self.filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
-                    self.filter.setValue(f.bounds.width / 2, forKey: "inputRadius")
+                    self.filter.setValue(radius, forKey: "inputRadius")
             
                     if(f.hasLeftEyePosition) {
                         leftEyePoint.x = f.leftEyePosition.x
@@ -231,6 +235,10 @@ class ModuleAViewControllerSwift: UIViewController {
                         img = self.blendFilter.outputImage
                     }
                      NSLog("left: %d | right: %d | missing: %d", Int(hasLeftEyeBlink), Int(hasRightEyeBlink), Int(!hasLeftEye | !hasRightEye) )
+                    
+                    self.filter.setValue(img, forKey: kCIInputImageKey)
+                    img = self.filter.outputImage
+                    
                 }
                
                 //                    NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
@@ -238,8 +246,7 @@ class ModuleAViewControllerSwift: UIViewController {
                 
                 
                 
-                //                    self.filter.setValue(img, forKey: kCIInputImageKey)
-                //                    img = self.filter.outputImage
+                //
             }
             
             NSLog("next image, smiles: %d", numSmiles)
@@ -274,6 +281,8 @@ class ModuleAViewControllerSwift: UIViewController {
                             self.videoManager.turnOnFlashwithLevel(0.1)
                         }
                         self.flashToggled = true
+                        
+                        NSLog("flash toggled")
                     }
                 }
                 else if(!eyesClosed)
@@ -331,12 +340,15 @@ class ModuleAViewControllerSwift: UIViewController {
         return image;
     }
     
-    @IBAction func onSliderChanged(sender: AnyObject) {
+    @IBAction func onSliderChanged(sender: UISlider) {
+        filterRadius = Float(sender.value)
     }
     @IBAction func onClickSettings(sender: AnyObject) {
     }
     
     @IBAction func onClickToggleOrientation(sender: AnyObject) {
+        
+        self.videoManager.toggleCameraPosition()
     }
     
     @IBAction func updateSettings(segue:UIStoryboardSegue) {
