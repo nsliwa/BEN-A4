@@ -112,7 +112,7 @@ class ModuleAViewControllerSwift: UIViewController {
                         eyeStatus = "Closed"
                         eyesClosed = true
                     }
-                    else if( hasRightEye && hasLeftEye ){
+                    else if( hasRightEye && hasLeftEye && !hasLeftEyeBlink && !hasRightEyeBlink ){
                         eyeStatus = "Open"
                     }
                     
