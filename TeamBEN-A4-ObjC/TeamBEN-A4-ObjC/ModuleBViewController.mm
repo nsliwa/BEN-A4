@@ -30,6 +30,7 @@ using namespace cv;
 @property (nonatomic) int numBeats;
 @property (nonatomic) bool queueSamples;
 @property (nonatomic) bool initializedHR;
+@property (nonatomic) int timeFraction;
 
 @end
 
@@ -59,6 +60,14 @@ using namespace cv;
     }
     
     return _numBeats;
+}
+
+-(int)timeFraction {
+    if(!_timeFraction) {
+        _timeFraction = 1;
+    }
+    
+    return _timeFraction;
 }
 
 -(int)bufferIndex {
@@ -172,13 +181,15 @@ using namespace cv;
                 self.statusLabel.text = @"Computing HR";
             });
             self.initializedHR = true;
+            self.timeFraction=1;
+            self.numBeats = 0;
         }
 
         if(!self.queueSamples) {
             self.queueSamples = true;
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:60.0
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:15.0
                                                            target:self
                                                          selector:@selector(_processSamples)
                                                          userInfo:nil
@@ -203,6 +214,20 @@ using namespace cv;
         [self.timer invalidate];
         
         [self clearBuffer];
+        if(self.numBeats > 0) {
+            int tempFrac = self.timeFraction;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.statusLabel.text = [NSString stringWithFormat:@"%f BPM", self.numBeats*(4.0/tempFrac)];
+            });
+            self.initializedHR = false;
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.statusLabel.text = @"Place Finger Now";
+            });
+            self.initializedHR = false;
+        }
         
         NSLog(@"buffer reset");
     }
@@ -250,9 +275,10 @@ using namespace cv;
         tempMax = 0.0;
         
     }
-    NSLog(@"%d", self.numBeats);
+    NSLog(@"beats: %d, frac: %d", self.numBeats, self.timeFraction);
+    int tempFrac = self.timeFraction;
     dispatch_async(dispatch_get_main_queue(), ^{
-       self.statusLabel.text = [NSString stringWithFormat:@"%d BPS", self.numBeats];
+       self.statusLabel.text = [NSString stringWithFormat:@"%0f BPM", self.numBeats*(4.0/tempFrac)];
     });
     
 //    [self clearBuffer];
@@ -260,6 +286,10 @@ using namespace cv;
 //    for(int i=0; i<self.bufferIndex; i++) {
 //        NSLog(@"~ %f", [[self.avgPixelIntensityBuffer objectAtIndex:(i)] floatValue]);
 //    }
+    
+    if(self.bufferIndex < kBufferLength) {
+        self.timeFraction++;
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.timer = [NSTimer scheduledTimerWithTimeInterval:15.0
