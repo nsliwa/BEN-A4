@@ -278,7 +278,9 @@ using namespace cv;
     NSLog(@"beats: %d, frac: %d", self.numBeats, self.timeFraction);
     int tempFrac = self.timeFraction;
     dispatch_async(dispatch_get_main_queue(), ^{
+
        self.statusLabel.text = [NSString stringWithFormat:@"%.1f BPM", self.numBeats*(4.0/tempFrac)];
+
     });
     
 //    [self clearBuffer];

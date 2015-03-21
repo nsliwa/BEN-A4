@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AD43CAD91AB109190040EE02"
-               BuildableName = "TeamBEN-A4-ObjC.app"
+               BuildableName = "BEN-A4.app"
                BlueprintName = "TeamBEN-A4-ObjC"
                ReferencedContainer = "container:BEN-A4.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD43CAD91AB109190040EE02"
-            BuildableName = "TeamBEN-A4-ObjC.app"
+            BuildableName = "BEN-A4.app"
             BlueprintName = "TeamBEN-A4-ObjC"
             ReferencedContainer = "container:BEN-A4.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD43CAD91AB109190040EE02"
-            BuildableName = "TeamBEN-A4-ObjC.app"
+            BuildableName = "BEN-A4.app"
             BlueprintName = "TeamBEN-A4-ObjC"
             ReferencedContainer = "container:BEN-A4.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD43CAD91AB109190040EE02"
-            BuildableName = "TeamBEN-A4-ObjC.app"
+            BuildableName = "BEN-A4.app"
             BlueprintName = "TeamBEN-A4-ObjC"
             ReferencedContainer = "container:BEN-A4.xcodeproj">
          </BuildableReference>

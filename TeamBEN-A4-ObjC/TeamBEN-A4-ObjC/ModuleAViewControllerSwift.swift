@@ -32,6 +32,7 @@ class ModuleAViewControllerSwift: UIViewController {
     var flashToggled = false
     var pictureTaken = false
     var eyesClosedCounter = 0
+    var blinkCounter = 0
     
     //        @IBAction func panRecognized(sender: AnyObject) {
     //            let point = sender.translationInView(self.view)
@@ -160,6 +161,10 @@ class ModuleAViewControllerSwift: UIViewController {
                     rightBlinked = true
                 }
                 
+                if(hasLeftEyeBlink && !hasRightEyeBlink){
+                    leftBlinked = true
+                }
+                
                 if(hasSmile){
                     numSmiles++
                 }
@@ -271,59 +276,43 @@ class ModuleAViewControllerSwift: UIViewController {
             }
             
             if( self.winkActionEnabled! ) {
-                if(rightBlinked  && !self.pictureTaken){
+                if(rightBlinked || leftBlinked  && !self.pictureTaken){
+                    
+                    self.blinkCounter++
+                    
+                    if(self.blinkCounter > 2){
+                        self.pictureTaken = true
+                    }
+                    
+                }else if(!rightBlinked && !leftBlinked && self.pictureTaken){
                     let ctx = CIContext(options:nil)
                     let cgImage = ctx.createCGImage(img, fromRect:img.extent())
-                    let uiImage = UIImage(CGImage: cgImage)?
                     
+                    let orientation = self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation)
                     
-//                    UIGraphicsBeginImageContext(uiImage!.size);
-//                    let context = UIGraphicsGetCurrentContext()
-//                    CGContextRotateCTM(context, 90/190*M_PI)
-//                    CGContextRotateCTM (context, 90/180*M_PI)
-//                    
-////                    if (orientation == UIImageOrientationRight) {
-////                        CGContextRotateCTM (context, 90/180*M_PI) ;
-////                    } else if (orientation == UIImageOrientationLeft) {
-////                        CGContextRotateCTM (context, -90/180*M_PI);
-////                    } else if (orientation == UIImageOrientationDown) {
-////                        // NOTHING
-////                    } else if (orientation == UIImageOrientationUp) {
-////                        CGContextRotateCTM (context, 90/180*M_PI);
-////                    }
-//                    
-//                    [src drawAtPoint:CGPointMake(0, 0)];
-//                    UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
-//                    UIGraphicsEndImageContext();
-//                    
-//                    
-//                    var swappedPoint = CGPoint()
-//        
-//                    // convert coordinates from UIKit to core image
-//                    var transform = CGAffineTransformIdentity
-//                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeRotation(CGFloat(M_PI_2)))
-//                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeScale(-1.0, 1.0))
-//                    transform = CGAffineTransformTranslate(transform, self.view.bounds.size.width/2,
-//                        self.view.bounds.size.height/2)
-//        
-//                    let rotated_uiImage = CGRectApplyAffineTransform(uiImage, transform)
-//                    //CGRectApplyAffineTransform(uiImage, transform);
+                    NSLog("orientation: %d", orientation)
                     
+                    var uiImage = UIImage()
+                    
+                    if(orientation == 5){
+                        uiImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Right)!
+                    }else if(orientation == 3){
+                        uiImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Down)!
+                    }else {
+                        uiImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Up)!
+                    }
                     
                     UIImageWriteToSavedPhotosAlbum(uiImage, nil, nil, nil)
                     
-//                    UIImageWriteToSavedPhotosAlbum(UIImage(CIImage: img), nil, nil, nil)
-                    //Take screenshot
-//                    var viewImage = self.screenshot()
-//                    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil)
-                    
-//                    self.screenShotMethod()
                     NSLog("attempting")
-                    self.pictureTaken = true
-                }else if(!rightBlinked  && self.pictureTaken){
+                    
                     self.pictureTaken = false
+                    self.blinkCounter = 0
                 }
-            } else { self.pictureTaken = false }
+            } else if(!self.pictureTaken){
+                self.pictureTaken = false
+                self.blinkCounter = 0
+            }
             
             if( self.blinkActionEnabled! ) {
                 if(eyesClosed && !self.flashToggled){
@@ -419,5 +408,66 @@ class ModuleAViewControllerSwift: UIViewController {
     @IBAction func updateSettings(segue:UIStoryboardSegue) {
         
     }
-    
+    /*
+    func scaleImage(image: UIImage, maxSize: Int) -> UIImage{
+        
+        var imageRef = image.CGImage
+        
+       // if(imageref ){//= image.CGImage){
+            
+            var alphaInfo = imageRef.CGImageAlphaInfo
+            var colorSpaceInfo = CGColorSpace.CreateDeviceRGB()
+            
+            if(alphaInfo == CGImageAlphaInfo.None){
+                
+                alphaInfo = CGImageAlphaInfo.NoneSkipLast
+            }
+            
+            var width = CGImageGetWidth(imageRef)
+            var height = CGImageGetHeight(imageRef)
+            
+            if(height >= width){
+                width = Math.Floor(width * (maxSize / height))
+                height = maxSize
+            } else {
+                height = Math.Floor(height * (maxSize / width))
+                width = maxSize
+            }
+        
+            
+            if(image.Orientation == UIImageOrientation.Up || image.Orientation == UIIMageOrientation.Down){
+                var bitmap = CGBitmapContext(IntPtr.Zero, width, height, imageRef.BitsPerComponent, imageRef.BytesPerRow, colorSpaceInfo, alphaInfo)
+            } else {
+                var bitmap = CGBitmapContext(IntPtr.Zero, height, width, imageRef.BitsPerComponent, imageRef.BytesPerRow, colorSpaceInfo, alphaInfo)
+            }
+            
+            switch(image.Orientation){
+                
+            case UIImageOrientation.Left:
+                bitmap.RotateCTM(Math.PI / 2)
+                bitmap.TranslateCTM(0, -height)
+                break
+                
+            case UIImageOrientation.Right:
+                bitmap.RotateCTM(-(Math.PI / 2));
+                bitmap.TranslateCTM(-width, 0);
+                break;
+            case UIImageOrientation.Up:
+                break;
+            case UIImageOrientation.Down:
+                bitmap.TranslateCTM(width, height);
+                bitmap.RotateCTM(-Math.PI);
+                break;
+            }
+            
+            bitmap.DrawImage(Rectangle(0, 0, width, height), imageRef)
+            
+            var res = UIImage.FromImage(bitmap.ToImage())
+            bitmap = null
+      //  }
+        
+        return res
+        
+    }
+ */
 }
