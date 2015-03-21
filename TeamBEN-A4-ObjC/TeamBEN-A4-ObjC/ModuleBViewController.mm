@@ -216,9 +216,9 @@ using namespace cv;
         [self clearBuffer];
         if(self.numBeats > 0) {
             int tempFrac = self.timeFraction;
-            
+            if(self.bufferIndex < kBufferLength) { tempFrac = self.timeFraction -1; }
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.statusLabel.text = [NSString stringWithFormat:@"%f BPM", self.numBeats*(4.0/tempFrac)];
+                self.statusLabel.text = [NSString stringWithFormat:@"%.1f BPM", self.numBeats*(4.0/tempFrac)];
             });
             self.initializedHR = false;
         }
@@ -278,7 +278,7 @@ using namespace cv;
     NSLog(@"beats: %d, frac: %d", self.numBeats, self.timeFraction);
     int tempFrac = self.timeFraction;
     dispatch_async(dispatch_get_main_queue(), ^{
-       self.statusLabel.text = [NSString stringWithFormat:@"%0f BPM", self.numBeats*(4.0/tempFrac)];
+       self.statusLabel.text = [NSString stringWithFormat:@"%.1f BPM", self.numBeats*(4.0/tempFrac)];
     });
     
 //    [self clearBuffer];
