@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TeamBEN-A4-ObjC.xcodeproj">
+      location = "self:BEN-A4.xcodeproj">
    </FileRef>
 </Workspace>

@@ -272,9 +272,53 @@ class ModuleAViewControllerSwift: UIViewController {
             
             if( self.winkActionEnabled! ) {
                 if(rightBlinked  && !self.pictureTaken){
+                    let ctx = CIContext(options:nil)
+                    let cgImage = ctx.createCGImage(img, fromRect:img.extent())
+                    let uiImage = UIImage(CGImage: cgImage)?
+                    
+                    
+//                    UIGraphicsBeginImageContext(uiImage!.size);
+//                    let context = UIGraphicsGetCurrentContext()
+//                    CGContextRotateCTM(context, 90/190*M_PI)
+//                    CGContextRotateCTM (context, 90/180*M_PI)
+//                    
+////                    if (orientation == UIImageOrientationRight) {
+////                        CGContextRotateCTM (context, 90/180*M_PI) ;
+////                    } else if (orientation == UIImageOrientationLeft) {
+////                        CGContextRotateCTM (context, -90/180*M_PI);
+////                    } else if (orientation == UIImageOrientationDown) {
+////                        // NOTHING
+////                    } else if (orientation == UIImageOrientationUp) {
+////                        CGContextRotateCTM (context, 90/180*M_PI);
+////                    }
+//                    
+//                    [src drawAtPoint:CGPointMake(0, 0)];
+//                    UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+//                    UIGraphicsEndImageContext();
+//                    
+//                    
+//                    var swappedPoint = CGPoint()
+//        
+//                    // convert coordinates from UIKit to core image
+//                    var transform = CGAffineTransformIdentity
+//                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeRotation(CGFloat(M_PI_2)))
+//                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeScale(-1.0, 1.0))
+//                    transform = CGAffineTransformTranslate(transform, self.view.bounds.size.width/2,
+//                        self.view.bounds.size.height/2)
+//        
+//                    let rotated_uiImage = CGRectApplyAffineTransform(uiImage, transform)
+//                    //CGRectApplyAffineTransform(uiImage, transform);
+                    
+                    
+                    UIImageWriteToSavedPhotosAlbum(uiImage, nil, nil, nil)
+                    
+//                    UIImageWriteToSavedPhotosAlbum(UIImage(CIImage: img), nil, nil, nil)
                     //Take screenshot
-                    var viewImage = self.screenshot()
-                    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil)
+//                    var viewImage = self.screenshot()
+//                    UIImageWriteToSavedPhotosAlbum(viewImage, nil, nil, nil)
+                    
+//                    self.screenShotMethod()
+                    NSLog("attempting")
                     self.pictureTaken = true
                 }else if(!rightBlinked  && self.pictureTaken){
                     self.pictureTaken = false
@@ -326,7 +370,19 @@ class ModuleAViewControllerSwift: UIViewController {
 //    
 //    }
 
-    
+    func screenShotMethod() {
+        NSLog("screenshot!")
+        if let layer = UIApplication.sharedApplication().keyWindow?.layer {
+            let scale = UIScreen.mainScreen().scale
+            UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+            
+            layer.renderInContext(UIGraphicsGetCurrentContext())
+            let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            UIImageWriteToSavedPhotosAlbum(screenshot, nil, nil, nil)
+        }
+    }
     
     func screenshot() -> UIImage
     {

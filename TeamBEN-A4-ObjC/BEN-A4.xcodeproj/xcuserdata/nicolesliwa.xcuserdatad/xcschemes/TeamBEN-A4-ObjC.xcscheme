@@ -17,7 +17,7 @@
                BlueprintIdentifier = "AD43CAD91AB109190040EE02"
                BuildableName = "TeamBEN-A4-ObjC.app"
                BlueprintName = "TeamBEN-A4-ObjC"
-               ReferencedContainer = "container:TeamBEN-A4-ObjC.xcodeproj">
+               ReferencedContainer = "container:BEN-A4.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "AD43CAF21AB1091A0040EE02"
                BuildableName = "TeamBEN-A4-ObjCTests.xctest"
                BlueprintName = "TeamBEN-A4-ObjCTests"
-               ReferencedContainer = "container:TeamBEN-A4-ObjC.xcodeproj">
+               ReferencedContainer = "container:BEN-A4.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "AD43CAF21AB1091A0040EE02"
                BuildableName = "TeamBEN-A4-ObjCTests.xctest"
                BlueprintName = "TeamBEN-A4-ObjCTests"
-               ReferencedContainer = "container:TeamBEN-A4-ObjC.xcodeproj">
+               ReferencedContainer = "container:BEN-A4.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "AD43CAD91AB109190040EE02"
             BuildableName = "TeamBEN-A4-ObjC.app"
             BlueprintName = "TeamBEN-A4-ObjC"
-            ReferencedContainer = "container:TeamBEN-A4-ObjC.xcodeproj">
+            ReferencedContainer = "container:BEN-A4.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "AD43CAD91AB109190040EE02"
             BuildableName = "TeamBEN-A4-ObjC.app"
             BlueprintName = "TeamBEN-A4-ObjC"
-            ReferencedContainer = "container:TeamBEN-A4-ObjC.xcodeproj">
+            ReferencedContainer = "container:BEN-A4.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,7 +96,7 @@
             BlueprintIdentifier = "AD43CAD91AB109190040EE02"
             BuildableName = "TeamBEN-A4-ObjC.app"
             BlueprintName = "TeamBEN-A4-ObjC"
-            ReferencedContainer = "container:TeamBEN-A4-ObjC.xcodeproj">
+            ReferencedContainer = "container:BEN-A4.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
