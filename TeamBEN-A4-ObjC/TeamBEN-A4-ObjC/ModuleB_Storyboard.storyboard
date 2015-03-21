@@ -16,21 +16,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-dG-HRf">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-dG-HRf">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjH-B5-43a">
-                                <rect key="frame" x="16" y="39" width="127" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjH-B5-43a">
+                                <rect key="frame" x="16" y="90" width="283" height="21"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UBD-dG-HRf" firstAttribute="bottom" secondItem="8hs-Oq-bK5" secondAttribute="top" id="2qb-p3-7IO"/>
+                            <constraint firstItem="UBD-dG-HRf" firstAttribute="top" secondItem="jjH-B5-43a" secondAttribute="bottom" constant="-111" id="4WG-DI-wYl"/>
+                            <constraint firstAttribute="trailing" secondItem="UBD-dG-HRf" secondAttribute="trailing" id="4gM-D5-wll"/>
+                            <constraint firstItem="UBD-dG-HRf" firstAttribute="leading" secondItem="jjH-B5-43a" secondAttribute="trailing" constant="-299" id="9vh-eM-Ppw"/>
+                            <constraint firstItem="UBD-dG-HRf" firstAttribute="top" secondItem="Wn1-xe-RRH" secondAttribute="top" id="CsP-FU-Ady"/>
+                            <constraint firstItem="UBD-dG-HRf" firstAttribute="leading" secondItem="Wn1-xe-RRH" secondAttribute="leading" id="adU-no-pQK"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="UBD-dG-HRf" id="rcM-VZ-v8w"/>
-                        <outlet property="statusLabel" destination="jjH-B5-43a" id="9xc-Xt-QXe"/>
+                        <outlet property="imageView" destination="UBD-dG-HRf" id="shx-LE-pc4"/>
+                        <outlet property="statusLabel" destination="jjH-B5-43a" id="Sjs-Rg-uPu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZOV-qm-BXd" userLabel="First Responder" sceneMemberID="firstResponder"/>
