@@ -12,7 +12,7 @@
 #import <opencv2/highgui/cap_ios.h>
 #import "CvVideoCameraMod.h"
 
-#define kBufferLength 6000
+#define kBufferLength 600
 #define kWindowLength 20
 
 using namespace cv;
@@ -21,6 +21,7 @@ using namespace cv;
 
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic) NSTimer *timer;
 @property (strong, nonatomic) CvVideoCameraMod *videoCamera;
 @property (nonatomic) float upBeatIntensity;
 @property (nonatomic) float downBeatIntensity;
@@ -33,7 +34,7 @@ using namespace cv;
 
 @implementation ModuleBViewController
 
-NSTimer *t;
+//NSTimer *t;
 
 -(bool)stopProcessing {
     if(!_stopProcessing) {
@@ -99,6 +100,9 @@ NSTimer *t;
     
     [self.videoCamera start];
     
+    //self.statusLabel.text = @"Place finger on camera lense";
+    NSLog(@"Place finger on camera lense");
+    
     
 }
 
@@ -131,6 +135,15 @@ NSTimer *t;
 #ifdef __cplusplus
 -(void) processImage:(Mat &)image {
     
+    AVCaptureDevice *device = nil;
+    
+    NSArray* allDevices = [AVCaptureDevice devices];
+    for (AVCaptureDevice* currentDevice in allDevices) {
+        if (currentDevice.position == AVCaptureDevicePositionBack && currentDevice.hasTorch) {
+            device = currentDevice;
+        }
+    }
+    
     //NSLog(@"procesing");
     
     // Do some OpenCV stuff with the image
@@ -139,37 +152,33 @@ NSTimer *t;
     cvtColor(image, image_copy, CV_BGRA2BGR); // get rid of alpha for processing
     
     Scalar avgPixelIntensity = cv::mean( image_copy );
+    
     if(avgPixelIntensity.val[0] < 50.0 && avgPixelIntensity.val[1] < 1.0) {
-        
-        AVCaptureDevice *device = nil;
-        
-        NSArray* allDevices = [AVCaptureDevice devices];
-        for (AVCaptureDevice* currentDevice in allDevices) {
-            if (currentDevice.position == AVCaptureDevicePositionBack) {
-                device = currentDevice;
-            }
-        }
-        if (self.videoCamera.defaultAVCaptureDevicePosition == AVCaptureDevicePositionBack && [device hasTorch]) {
-            
+        if(device.torchActive == false) {
             [device lockForConfiguration:nil];
             [device setTorchMode: AVCaptureTorchModeOn];
             [device unlockForConfiguration];
-            
-            if(t == nil) {
-                t = [NSTimer scheduledTimerWithTimeInterval: 60.0
-                            target: self
-                            selector:@selector(printNumBeats:)
-                            userInfo: nil
-                            repeats:NO];
-            }
-            
+        }
+        if(self.timer == nil) {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0
+                                                 target:self
+                                               selector:@selector(printNumBeats:)
+                                               userInfo:nil
+                                                repeats:NO];
+            //[[NSRunLoop currentRunLoop] addTimer:t forMode:NSRunLoopCommonModes];
+
             if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil && !self.stopProcessing) {
+                //NSLog(@"Processing");
                 self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
                 self.bufferIndex++;
             }
-            
         }
-        
+        else if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil && !self.stopProcessing) {
+            //NSLog(@"Processing");
+            self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
+            self.bufferIndex++;
+        }
+    
     }
     
     cvtColor(image_copy, image, CV_BGR2BGRA); //add back for display
@@ -178,6 +187,11 @@ NSTimer *t;
 #endif
 
 -(void)printNumBeats: (NSTimer*) timer {
+    NSLog(@"Remove finger from camera lense");
+    [timer invalidate];
+    
+    //self.statusLabel.text = @"Remove finger from camera lense";
+    
     
     self.stopProcessing = true;
     
