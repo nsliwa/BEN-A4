@@ -11,9 +11,8 @@ import AVFoundation
 
 class ModuleAViewControllerSwift: UIViewController {
     
-    //        @IBOutlet weak var flashSlider: UISlider!
     var videoManager : VideoAnalgesic! = nil
-    var filters = [CIFilter]()
+    
     let filter :CIFilter = CIFilter(name: "CIBumpDistortion")
     let leftEyeFilter :CIFilter = CIFilter(name: "CIRadialGradient")
     let rightEyeFilter :CIFilter = CIFilter(name: "CIRadialGradient")
@@ -50,6 +49,7 @@ class ModuleAViewControllerSwift: UIViewController {
     //            filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
     //
     //        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,7 +67,6 @@ class ModuleAViewControllerSwift: UIViewController {
         }
         if let dict = defaultDict {
             NSUserDefaults.standardUserDefaults().registerDefaults(dict)
-            //            NSLog(dict.description)
         }
         
         leftEyeFilter.setValue(CIColor(CGColor: UIColor.clearColor().CGColor), forKey: "inputColor1")
@@ -86,6 +85,7 @@ class ModuleAViewControllerSwift: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Pull initial User Defaults
         let defaults = NSUserDefaults.standardUserDefaults()
         if let smileEffectSetting = defaults.boolForKey("smileEffectEnabled") as Bool? {
             smileEffectEnabled = smileEffectSetting
@@ -103,8 +103,7 @@ class ModuleAViewControllerSwift: UIViewController {
             blinkActionEnabled = blinkActionSetting
         } else { blinkActionEnabled = true }
         
-        filter.setValue(5.0, forKey: "inputRadius")
-        
+        // Feature detector settings
         let optsDetector = [CIDetectorAccuracy:CIDetectorAccuracyLow, CIDetectorTracking:true]
         
         let detector = CIDetector(ofType: CIDetectorTypeFace,
@@ -114,6 +113,7 @@ class ModuleAViewControllerSwift: UIViewController {
         self.videoManager.setProcessingBlock( { (imageInput) -> (CIImage) in
             var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation),
                 CIDetectorSmile:true, CIDetectorEyeBlink:true]
+            
             var features = detector.featuresInImage(imageInput, options: optsFace)
             var img = imageInput
             
@@ -133,11 +133,11 @@ class ModuleAViewControllerSwift: UIViewController {
             var rightBlinkIds = [Int: Bool]()
             
             for f in features as [CIFaceFeature]{
-                var hasSmile = f.hasSmile ? true : false
-                var eyeStatus = "None"
-                
                 numFeatures++
                 
+                var eyeStatus = "None"
+                
+                var hasSmile = f.hasSmile ? true : false
                 var hasLeftEye = f.hasLeftEyePosition ? true : false
                 var hasRightEye = f.hasRightEyePosition ? true : false
                 var hasLeftEyeBlink = f.leftEyeClosed ? true : false
@@ -158,37 +158,37 @@ class ModuleAViewControllerSwift: UIViewController {
                 if(hasSmile){
                     numSmiles++
                 }
-                //
-                //                    if(hasLeftEyeBlink && !hasRightEyeBlink){
-                //                        if(leftBlinkIds[Int(f.trackingID)] == nil || leftBlinkIds[Int(f.trackingID)] == false) {
-                //                            leftBlinkIds[Int(f.trackingID)] = true
-                //                            leftBlinked = true
-                //                        }
-                //                    }
-                //                    else {
-                //                        leftBlinkIds[Int(f.trackingID)] = false
-                //                    }
-                //
-                //                    if(hasRightEyeBlink && !hasLeftEyeBlink){
-                //                        if(rightBlinkIds[Int(f.trackingID)] == nil || rightBlinkIds[Int(f.trackingID)] == false) {
-                //                            rightBlinkIds[Int(f.trackingID)] = true
-                //                            rightBlinked = true
-                //                        }
-                //                    }
-                //                    else {
-                //                        rightBlinkIds[Int(f.trackingID)] = false
-                //                    }
-                
-                
-                //                    NSLog("%d", f.hasSmile)
+//
+//                if(hasLeftEyeBlink && !hasRightEyeBlink){
+//                    if(leftBlinkIds[Int(f.trackingID)] == nil || leftBlinkIds[Int(f.trackingID)] == false) {
+//                        leftBlinkIds[Int(f.trackingID)] = true
+//                        leftBlinked = true
+//                    }
+//                }
+//                else {
+//                    leftBlinkIds[Int(f.trackingID)] = false
+//                }
+//
+//                if(hasRightEyeBlink && !hasLeftEyeBlink){
+//                    if(rightBlinkIds[Int(f.trackingID)] == nil || rightBlinkIds[Int(f.trackingID)] == false) {
+//                        rightBlinkIds[Int(f.trackingID)] = true
+//                        rightBlinked = true
+//                    }
+//                }
+//                else {
+//                    rightBlinkIds[Int(f.trackingID)] = false
+//                }
+//
+//
+//                NSLog("%d", f.hasSmile)
                 
                 if(self.faceIdentificationEnabled!) {
                     NSLog("ID: %d, Smile: %@, Eyes: %@",f.trackingID, hasSmile, eyeStatus)
                     swappedPoint.x = f.bounds.midX
                     swappedPoint.y = f.bounds.midY
                     
-                    //                    point1.x = f.bounds.maxX
-                    //                    point1.y = f.bounds.maxY
+//                    point1.x = f.bounds.maxX
+//                    point1.y = f.bounds.maxY
                     var radius = Float(f.bounds.width) * self.filterRadius
                     
                     self.filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
@@ -212,7 +212,7 @@ class ModuleAViewControllerSwift: UIViewController {
                         rightEyePoint.y = f.rightEyePosition.y
                         self.rightEyeFilter.setValue(CIVector(CGPoint: rightEyePoint), forKey: "inputCenter")
                         self.rightEyeFilter.setValue(10, forKey: "inputRadius1")
-                        //                        self.rightEyeFilter.setValue(UIColor.blueColor().CIColor, forKey: "inputColor1")
+//                        self.rightEyeFilter.setValue(UIColor.blueColor().CIColor, forKey: "inputColor1")
                         
                         var backgroundImg :CIImage = self.rightEyeFilter.outputImage
                         
@@ -226,7 +226,7 @@ class ModuleAViewControllerSwift: UIViewController {
                         mouthPoint.y = f.mouthPosition.y
                         self.mouthFilter.setValue(CIVector(CGPoint: mouthPoint), forKey: "inputCenter")
                         self.mouthFilter.setValue(10, forKey: "inputRadius1")
-                        //                        self.mouthFilter.setValue(UIColor.greenColor().CIColor, forKey: "inputColor1")
+//                        self.mouthFilter.setValue(UIColor.greenColor().CIColor, forKey: "inputColor1")
                         
                         var backgroundImg :CIImage = self.mouthFilter.outputImage
                         
@@ -241,12 +241,9 @@ class ModuleAViewControllerSwift: UIViewController {
                     
                 }
                
-                //                    NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
-                //                    NSLog("mouth: %s, %s | left: %s, %s | right: %s, %s", mouthPoint.x, mouthPoint.y, leftEyePoint.x, leftEyePoint.y, rightEyePoint.x, rightEyePoint.y)
+//                NSLog("mouth: %@ | left: %@ | right: %@", NSStringFromCGPoint(mouthPoint), NSStringFromCGPoint(leftEyePoint), NSStringFromCGPoint(rightEyePoint))
+//                NSLog("mouth: %s, %s | left: %s, %s | right: %s, %s", mouthPoint.x, mouthPoint.y, leftEyePoint.x, leftEyePoint.y, rightEyePoint.x, rightEyePoint.y)
                 
-                
-                
-                //
             }
             
             NSLog("next image, smiles: %d", numSmiles)
@@ -295,8 +292,9 @@ class ModuleAViewControllerSwift: UIViewController {
                     self.eyesClosedCounter = 0
             }
             
-            //                self.filter.setValue(img, forKey: kCIInputImageKey)
-            return img//self.filter.outputImage
+            // self.filter.setValue(img, forKey: kCIInputImageKey)
+            // return self.filter.outputImage
+            return img
         })
         
         
@@ -307,15 +305,15 @@ class ModuleAViewControllerSwift: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         self.videoManager.stop()
     }
-    /*
-    func takePhoto(){
-    var picker = UIImagePickerController.self
-    picker.delegate = self
-    picker.allowsEditing = YES
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera
     
-    }
-    */
+//    func takePhoto(){
+//        var picker = UIImagePickerController.self
+//        picker.delegate = self
+//        picker.allowsEditing = YES
+//        picker.sourceType = UIImagePickerControllerSourceTypeCamera
+//    
+//    }
+
     
     
     func screenshot() -> UIImage
@@ -341,9 +339,8 @@ class ModuleAViewControllerSwift: UIViewController {
     }
     
     @IBAction func onSliderChanged(sender: UISlider) {
+        
         filterRadius = Float(sender.value)
-    }
-    @IBAction func onClickSettings(sender: AnyObject) {
     }
     
     @IBAction func onClickToggleOrientation(sender: AnyObject) {

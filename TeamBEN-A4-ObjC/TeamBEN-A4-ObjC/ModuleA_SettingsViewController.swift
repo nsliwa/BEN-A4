@@ -11,11 +11,8 @@ import UIKit
 class ModuleA_SettingsViewController: UIViewController {
 
     @IBOutlet weak var switchWinkAction: UISwitch!
-    
     @IBOutlet weak var switchBlinkAction: UISwitch!
-    
     @IBOutlet weak var switchSmileEffect: UISwitch!
-    
     @IBOutlet weak var switchFaceIdentification: UISwitch!
     
     override func viewDidLoad() {
@@ -46,7 +43,7 @@ class ModuleA_SettingsViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "UpdateSettings" {
-//            player = Player(name: self.nameTextField.text, game: "Chess", rating: 1)
+            // Potentially do stuff
         }
     }
     
@@ -85,15 +82,5 @@ class ModuleA_SettingsViewController: UIViewController {
         NSLog("face UI: %d | setting: %d", Int(switchFaceIdentification.on), Int(defaults.boolForKey("faceIdentificationEnabled")))
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -51,7 +51,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onClickSettings:" destination="2E7-wv-cUi" eventType="touchUpInside" id="2JT-2U-HPz"/>
                                     <segue destination="sFR-AV-6gS" kind="modal" id="iNE-ap-GxX"/>
                                 </connections>
                             </button>
