@@ -11,9 +11,11 @@
 #import <opencv2/opencv.hpp>
 #import <opencv2/highgui/cap_ios.h>
 #import "CvVideoCameraMod.h"
+#import "CustomQueue.h"
 
-#define kBufferLength 6000
-#define kWindowLength 15
+#define kFPS 30
+#define kBufferLength 60*kFPS
+#define kWindowLength 13
 
 using namespace cv;
 
@@ -23,13 +25,10 @@ using namespace cv;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) NSTimer *timer;
 @property (strong, nonatomic) CvVideoCameraMod *videoCamera;
-@property (nonatomic) float upBeatIntensity;
-@property (nonatomic) float downBeatIntensity;
-@property (nonatomic) float *avgPixelIntensityBuffer;
+@property (strong, nonatomic) NSMutableArray* avgPixelIntensityBuffer;
 @property (nonatomic) int bufferIndex;
 @property (nonatomic) int numBeats;
-@property (nonatomic) bool stopProcessing;
-@property (nonatomic) bool readingSamples;
+@property (nonatomic) bool queueSamples;
 @property (nonatomic) bool initializedHR;
 
 @end
@@ -46,20 +45,12 @@ using namespace cv;
     return _initializedHR;
 }
 
--(bool)readingSamples {
-    if(!_readingSamples) {
-        _readingSamples = false;
+-(bool)queueSamples {
+    if(!_queueSamples) {
+        _queueSamples = false;
     }
     
-    return _readingSamples;
-}
-
--(bool)stopProcessing {
-    if(!_stopProcessing) {
-        _stopProcessing = false;
-    }
-    
-    return _stopProcessing;
+    return _queueSamples;
 }
 
 -(int)numBeats {
@@ -78,28 +69,13 @@ using namespace cv;
     return _bufferIndex;
 }
 
--(float*)avgPixelIntensityBuffer {
+-(NSMutableArray*)avgPixelIntensityBuffer {
     if(!_avgPixelIntensityBuffer) {
-        _avgPixelIntensityBuffer = (float*)calloc(kBufferLength, sizeof(float));
+        //_avgPixelIntensityBuffer = (float*)calloc(kBufferLength, sizeof(float));
+        _avgPixelIntensityBuffer = [[NSMutableArray alloc] init];
     }
     
     return _avgPixelIntensityBuffer;
-}
-
--(float)upBeatIntensity {
-    if(!_upBeatIntensity) {
-        _upBeatIntensity = 0.0;
-    }
-    
-    return _upBeatIntensity;
-}
-
--(float)downBeatIntensity {
-    if(!_downBeatIntensity) {
-        _downBeatIntensity = 0.0;
-    }
-    
-    return _downBeatIntensity;
 }
 
 - (void)viewDidLoad {
@@ -113,7 +89,7 @@ using namespace cv;
     self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
     self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset352x288;
     self.videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
-    self.videoCamera.defaultFPS = 30;
+    self.videoCamera.defaultFPS = kFPS;
     self.videoCamera.grayscaleMode = NO;
     
 }
@@ -124,6 +100,8 @@ using namespace cv;
     //self.statusLabel.text = @"Place finger on camera lense";
     NSLog(@"Place finger on camera lense");
     self.statusLabel.text = @"Place Finger Now";
+    
+    self.initializedHR = false;
     
     // Make sure flash is on
     AVCaptureDevice *device = nil;
@@ -163,11 +141,11 @@ using namespace cv;
     
 }
 
--(void)dealloc {
+/*-(void)dealloc {
     
     free(self.avgPixelIntensityBuffer);
     
-}
+}*/
 
 #ifdef __cplusplus
 -(void) processImage:(Mat &)image {
@@ -193,10 +171,11 @@ using namespace cv;
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.statusLabel.text = @"Computing HR";
             });
+            self.initializedHR = true;
         }
 
-        if(!self.readingSamples) {
-            self.readingSamples = true;
+        if(!self.queueSamples) {
+            self.queueSamples = true;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:60.0
@@ -206,28 +185,34 @@ using namespace cv;
                                                           repeats:NO];
             });
         }
-        if(self.readingSamples) {
+        if(self.queueSamples) {
             if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil) {
-                self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
+                //self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
+                [self.avgPixelIntensityBuffer enqueue: [NSNumber numberWithFloat: avgPixelIntensity.val[2]]];
                 self.bufferIndex++;
+            }
+            else if(self.bufferIndex == kBufferLength) {
+                [self.avgPixelIntensityBuffer dequeue];
+                [self.avgPixelIntensityBuffer enqueue: [NSNumber numberWithFloat: avgPixelIntensity.val[2]]];
             }
         }
         
     }
-    else if(self.readingSamples) {
-        self.readingSamples = false;
+    else if(self.queueSamples) {
+        self.queueSamples = false;
+        [self.timer invalidate];
         
         [self clearBuffer];
         
-        NSLog(@"buffer rest");
+        NSLog(@"buffer reset");
     }
     
     cvtColor(image_copy, image, CV_BGR2BGRA); //add back for display
     
-    if( self.bufferIndex >= kBufferLength ) {
-        [self.timer invalidate];
-        [self _processSamples ];
-    }
+//    if( self.bufferIndex >= kBufferLength ) {
+//        [self.timer invalidate];
+//        [self _processSamples ];
+//    }
     
 }
 #endif
@@ -235,21 +220,22 @@ using namespace cv;
 - (void) _processSamples {
     
     NSLog(@"processing");
-    self.readingSamples = false;
+//    self.queueSamples = false;
     
     for(int i=0; i<self.bufferIndex; i++) {
-        NSLog(@"~~~ %f", self.avgPixelIntensityBuffer[i]);
+        NSLog(@"~~~ %@", [self.avgPixelIntensityBuffer objectAtIndex:i]);
     }
     
     float tempMax = 0.0;
     int tempMaxIndex = 0;
+    self.numBeats = 0;
     
     for(int i = 0; i < self.bufferIndex - kWindowLength + 1; i++) {
         
         for(int j = 0; j < kWindowLength; j++) {
             
-            if(self.avgPixelIntensityBuffer[i+j] >= tempMax && self.avgPixelIntensityBuffer[i+j] > 170) {
-                tempMax = self.avgPixelIntensityBuffer[i+j];
+            if([[self.avgPixelIntensityBuffer objectAtIndex:(i+j)] floatValue] >= tempMax && [[self.avgPixelIntensityBuffer objectAtIndex:(i+j)] floatValue] > 170) {
+                tempMax = [[self.avgPixelIntensityBuffer objectAtIndex:(i+j)] floatValue];
                 tempMaxIndex = j;
             }
             
@@ -266,120 +252,34 @@ using namespace cv;
     }
     NSLog(@"%d", self.numBeats);
     dispatch_async(dispatch_get_main_queue(), ^{
-       self.statusLabel.text = [NSString stringWithFormat:@"%d BPS", self.numBeats*3];
+       self.statusLabel.text = [NSString stringWithFormat:@"%d BPS", self.numBeats];
     });
     
-    [self clearBuffer];
+//    [self clearBuffer];
     
-    for(int i=0; i<self.bufferIndex; i++) {
-        NSLog(@"~ %f", self.avgPixelIntensityBuffer[i]);
-    }
+//    for(int i=0; i<self.bufferIndex; i++) {
+//        NSLog(@"~ %f", [[self.avgPixelIntensityBuffer objectAtIndex:(i)] floatValue]);
+//    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:15.0
+                                                   target:self
+                                                 selector:@selector(_processSamples)
+                                                 userInfo:nil
+                                                  repeats:NO];
+    });
     
 }
 
 - (void) clearBuffer {
-    self.numBeats = 0;
+//    self.numBeats = 0;
     
-    free(self.avgPixelIntensityBuffer);
+   // free(self.avgPixelIntensityBuffer);
     
-    self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
+    //self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
     self.bufferIndex = 0;
+    [self.avgPixelIntensityBuffer removeAllObjects];
 }
 
-//#ifdef __cplusplus
-//-(void) processImage:(Mat &)image {
-
-//    AVCaptureDevice *device = nil;
-//    
-//    NSArray* allDevices = [AVCaptureDevice devices];
-//    for (AVCaptureDevice* currentDevice in allDevices) {
-//        if (currentDevice.position == AVCaptureDevicePositionBack && currentDevice.hasTorch) {
-//            device = currentDevice;
-//        }
-//    }
-//    
-//    //NSLog(@"procesing");
-//    
-//    // Do some OpenCV stuff with the image
-//    Mat image_copy;
-//    
-//    cvtColor(image, image_copy, CV_BGRA2BGR); // get rid of alpha for processing
-//    
-//    Scalar avgPixelIntensity = cv::mean( image_copy );
-    
-//    if(avgPixelIntensity.val[0] < 50.0 && avgPixelIntensity.val[1] < 1.0) {
-//        if(device.torchActive == false) {
-//            [device lockForConfiguration:nil];
-//            [device setTorchMode: AVCaptureTorchModeOn];
-//            [device unlockForConfiguration];
-//        }
-//        if(self.timer == nil) {
-//            self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0
-//                                                 target:self
-//                                               selector:@selector(printNumBeats:)
-//                                               userInfo:nil
-//                                                repeats:NO];
-//            //[[NSRunLoop currentRunLoop] addTimer:t forMode:NSRunLoopCommonModes];
-
-//            if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil && !self.stopProcessing) {
-//                //NSLog(@"Processing");
-//                self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
-//                self.bufferIndex++;
-//            }
-//        }
-//        else if(self.bufferIndex < kBufferLength && self.avgPixelIntensityBuffer != nil && !self.stopProcessing) {
-//            //NSLog(@"Processing");
-//            self.avgPixelIntensityBuffer[self.bufferIndex] = avgPixelIntensity.val[2];
-//            self.bufferIndex++;
-//        }
-    
-//    }
-//    
-//    cvtColor(image_copy, image, CV_BGR2BGRA); //add back for display
-//
-//}
-//#endif
-
-//-(void)printNumBeats: (NSTimer*) timer {
-//    NSLog(@"Remove finger from camera lense");
-//    [timer invalidate];
-//    
-//    //self.statusLabel.text = @"Remove finger from camera lense";
-//    
-//    
-//    self.stopProcessing = true;
-//    
-//    float tempMax = 0.0;
-//    int tempMaxIndex = 0;
-//    
-//    for(int i = 0; i < self.bufferIndex - kWindowLength + 1; i++) {
-//        
-//        for(int j = 0; j < kWindowLength; j++) {
-//            
-//            if(self.avgPixelIntensityBuffer[i+j] >= tempMax && self.avgPixelIntensityBuffer[i+j] > 170) {
-//                tempMax = self.avgPixelIntensityBuffer[i+j];
-//                tempMaxIndex = j;
-//            }
-//            
-//        }
-//        
-//        if(tempMaxIndex == (kWindowLength/2)-1) {
-//            //dispatch_async(dispatch_get_main_queue(), ^{
-//                self.numBeats++;
-//            //});
-//        }
-//        
-//        tempMax = 0.0;
-//        
-//    }
-//    NSLog(@"%d", self.numBeats);
-//    
-//    self.numBeats = 0;
-//    
-//    free(self.avgPixelIntensityBuffer);
-//    
-//    self.avgPixelIntensityBuffer = (float*)calloc(kBufferLength,sizeof(float));
-//    self.bufferIndex = 0;
-//}
 
 @end
