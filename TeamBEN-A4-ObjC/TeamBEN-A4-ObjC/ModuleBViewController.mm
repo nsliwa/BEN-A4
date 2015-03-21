@@ -252,7 +252,7 @@ using namespace cv;
     }
     NSLog(@"%d", self.numBeats);
     dispatch_async(dispatch_get_main_queue(), ^{
-       self.statusLabel.text = [NSString stringWithFormat:@"%d BPS", self.numBeats];
+       self.statusLabel.text = [NSString stringWithFormat:@"%d BPM", self.numBeats];
     });
     
 //    [self clearBuffer];
