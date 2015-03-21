@@ -129,6 +129,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feature Identification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmP-Vb-FJi">
+                                <rect key="frame" x="23" y="227" width="162" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2n-A0-KMQ">
                                 <rect key="frame" x="243" y="44" width="51" height="31"/>
                                 <connections>
@@ -162,12 +168,20 @@
                                     <segue destination="DoV-XL-jYe" kind="unwind" unwindAction="updateSettings:" id="scx-12-azP"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mbg-E6-iPZ">
+                                <rect key="frame" x="243" y="227" width="51" height="31"/>
+                                <connections>
+                                    <action selector="faceIdentificationToggled:" destination="sFR-AV-6gS" eventType="valueChanged" id="6BJ-K3-eT6"/>
+                                    <action selector="featureIdentificationToggled:" destination="sFR-AV-6gS" eventType="valueChanged" id="6yG-kf-uld"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="switchBlinkAction" destination="PX3-eB-yfo" id="qLl-Wu-d4I"/>
                         <outlet property="switchFaceIdentification" destination="lrX-el-yf5" id="57T-ih-ZuD"/>
+                        <outlet property="switchFeatureIdentification" destination="mbg-E6-iPZ" id="slT-Kv-l07"/>
                         <outlet property="switchSmileEffect" destination="3Ur-ML-GpV" id="Thg-yY-PNk"/>
                         <outlet property="switchWinkAction" destination="C2n-A0-KMQ" id="VhB-Cn-Rhh"/>
                     </connections>

@@ -23,6 +23,7 @@ class ModuleAViewControllerSwift: UIViewController {
     
     var smileEffectEnabled :Bool!
     var faceIdentificationEnabled :Bool!
+    var featureIdentificationEnabled :Bool!
     var winkActionEnabled :Bool!
     var blinkActionEnabled :Bool!
     
@@ -94,6 +95,10 @@ class ModuleAViewControllerSwift: UIViewController {
         if let faceIdentificationSetting = defaults.boolForKey("faceIdentificationEnabled") as Bool? {
             faceIdentificationEnabled = faceIdentificationSetting
         } else { faceIdentificationEnabled = true }
+        
+        if let featureIdentificationSetting = defaults.boolForKey("featureIdentificationEnabled") as Bool? {
+            featureIdentificationEnabled = featureIdentificationSetting
+        } else { featureIdentificationEnabled = true }
         
         if let winkActionSetting = defaults.boolForKey("winkActionEnabled") as Bool? {
             winkActionEnabled = winkActionSetting
@@ -193,6 +198,10 @@ class ModuleAViewControllerSwift: UIViewController {
                     
                     self.filter.setValue(CIVector(CGPoint: swappedPoint), forKey: "inputCenter")
                     self.filter.setValue(radius, forKey: "inputRadius")
+                    
+                }
+                
+                if(self.featureIdentificationEnabled!) {
             
                     if(f.hasLeftEyePosition) {
                         leftEyePoint.x = f.leftEyePosition.x
@@ -236,6 +245,9 @@ class ModuleAViewControllerSwift: UIViewController {
                     }
                      NSLog("left: %d | right: %d | missing: %d", Int(hasLeftEyeBlink), Int(hasRightEyeBlink), Int(!hasLeftEye | !hasRightEye) )
                     
+                }
+                
+                if(self.faceIdentificationEnabled!) {
                     self.filter.setValue(img, forKey: kCIInputImageKey)
                     img = self.filter.outputImage
                     

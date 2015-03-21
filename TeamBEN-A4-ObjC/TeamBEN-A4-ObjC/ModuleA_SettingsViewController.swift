@@ -14,6 +14,7 @@ class ModuleA_SettingsViewController: UIViewController {
     @IBOutlet weak var switchBlinkAction: UISwitch!
     @IBOutlet weak var switchSmileEffect: UISwitch!
     @IBOutlet weak var switchFaceIdentification: UISwitch!
+    @IBOutlet weak var switchFeatureIdentification: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,10 @@ class ModuleA_SettingsViewController: UIViewController {
         if let faceIdentificationSetting = defaults.boolForKey("faceIdentificationEnabled") as Bool? {
             switchFaceIdentification.on = faceIdentificationSetting
         } else { switchFaceIdentification.on = true }
+        
+        if let featureIdentificationSetting = defaults.boolForKey("featureIdentificationEnabled") as Bool? {
+            switchFeatureIdentification.on = featureIdentificationSetting
+        } else { switchFeatureIdentification.on = true }
         
         if let winkActionSetting = defaults.boolForKey("winkActionEnabled") as Bool? {
             switchWinkAction.on = winkActionSetting
@@ -80,6 +85,15 @@ class ModuleA_SettingsViewController: UIViewController {
         defaults.setBool(switchFaceIdentification.on, forKey: "faceIdentificationEnabled")
         
         NSLog("face UI: %d | setting: %d", Int(switchFaceIdentification.on), Int(defaults.boolForKey("faceIdentificationEnabled")))
+        
+    }
+    
+    @IBAction func featureIdentificationToggled(sender: AnyObject) {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setBool(switchFeatureIdentification.on, forKey: "featureIdentificationEnabled")
+        
+        NSLog("feature UI: %d | setting: %d", Int(switchFeatureIdentification.on), Int(defaults.boolForKey("featureIdentificationEnabled")))
         
     }
 
