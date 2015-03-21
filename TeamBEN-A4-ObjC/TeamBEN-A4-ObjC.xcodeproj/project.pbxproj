@@ -32,6 +32,7 @@
 		AD4742941AB91ED5002F2905 /* VideoAnalgesic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4742931AB91ED5002F2905 /* VideoAnalgesic.swift */; };
 		AD5E97381ABBEA490014F627 /* ModuleA_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E97371ABBEA490014F627 /* ModuleA_SettingsViewController.swift */; };
 		AD5E973A1ABCAA000014F627 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD5E97391ABCAA000014F627 /* UserDefaults.plist */; };
+		AD5E97401ABD33560014F627 /* CustomQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5E973F1ABD33560014F627 /* CustomQueue.m */; };
 		EF9945DF1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,8 @@
 		AD4742931AB91ED5002F2905 /* VideoAnalgesic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoAnalgesic.swift; sourceTree = "<group>"; };
 		AD5E97371ABBEA490014F627 /* ModuleA_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleA_SettingsViewController.swift; sourceTree = "<group>"; };
 		AD5E97391ABCAA000014F627 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
+		AD5E973E1ABD33560014F627 /* CustomQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomQueue.h; sourceTree = "<group>"; };
+		AD5E973F1ABD33560014F627 /* CustomQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomQueue.m; sourceTree = "<group>"; };
 		EF9945D51AB8C6010031D06F /* TeamBEN-A4-ObjC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamBEN-A4-ObjC-Bridging-Header.h"; sourceTree = "<group>"; };
 		EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleAViewControllerSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +172,8 @@
 				AD43CADF1AB109190040EE02 /* main.m */,
 				EF9945D51AB8C6010031D06F /* TeamBEN-A4-ObjC-Bridging-Header.h */,
 				AD5E97391ABCAA000014F627 /* UserDefaults.plist */,
+				AD5E973E1ABD33560014F627 /* CustomQueue.h */,
+				AD5E973F1ABD33560014F627 /* CustomQueue.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				EF9945DF1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift in Sources */,
 				AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */,
 				AD4742941AB91ED5002F2905 /* VideoAnalgesic.swift in Sources */,
+				AD5E97401ABD33560014F627 /* CustomQueue.m in Sources */,
 				AD5E97381ABBEA490014F627 /* ModuleA_SettingsViewController.swift in Sources */,
 				AD43CB191AB10A680040EE02 /* CvVideoCameraMod.m in Sources */,
 				AD43CAE01AB109190040EE02 /* main.m in Sources */,
