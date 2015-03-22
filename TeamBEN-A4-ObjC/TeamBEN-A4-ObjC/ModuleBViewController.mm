@@ -7,6 +7,7 @@
 //
 
 #import "ModuleBViewController.h"
+#import "ModuleB_embeddedPPGViewController.h"
 #import "AVFoundation/AVFoundation.h"
 #import <opencv2/opencv.hpp>
 #import <opencv2/highgui/cap_ios.h>
@@ -32,7 +33,11 @@ using namespace cv;
 @property (nonatomic) bool initializedHR;
 @property (nonatomic) int timeFraction;
 
+@property (strong, nonatomic) ModuleB_embeddedFrequencyViewController *embed;
+
 @end
+
+NSArray* sharedBuffer = @[];
 
 @implementation ModuleBViewController
 
@@ -206,6 +211,10 @@ using namespace cv;
                 [self.avgPixelIntensityBuffer dequeue];
                 [self.avgPixelIntensityBuffer enqueue: [NSNumber numberWithFloat: avgPixelIntensity.val[2]]];
             }
+            
+            if(self.bufferIndex > 300 ) {
+                sharedBuffer = [self.avgPixelIntensityBuffer subarrayWithRange:NSMakeRange(0, 300)];
+            }
         }
         
     }
@@ -313,5 +322,51 @@ using namespace cv;
     [self.avgPixelIntensityBuffer removeAllObjects];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"Segue_EmbeddedGLK"]) {
+        self.embed = segue.destinationViewController;
+//        self.embed.outputFrequency = frequencyTone;
+    }
+}
+
+- (void) getPPGHandler:(void (^)(NSArray*))handler
+{
+    // NOTE: copying is very important if you'll call the callback asynchronously,
+    // even with garbage collection!
+    _PPGHandler = [handler copy];
+    
+    // Do stuff, possibly asynchronously...
+    //int result = 5 + 3;
+    if( self.bufferIndex > 300 ) {
+        NSArray* slicedArray = [self.avgPixelIntensityBuffer subarrayWithRange:NSMakeRange(0, 300)];
+        _PPGHandler(slicedArray);
+        NSLog(@"data ~ %d", self.bufferIndex);
+    }
+    else {
+//        NSSArray* slicedArray = @[];
+        _PPGHandler(@[]);
+        NSLog(@"no data ~ %d", self.bufferIndex);
+    }
+    
+    // Call completion handler.
+//    _PPGHandler(slicedArray);
+    
+    // Clean up.
+    _PPGHandler = nil;
+}
+
+//+(NSArray*)sharedBuffer{
+//    // backing var
+//    static ModuleBViewController * _sharedInstance = nil;
+//    
+//    // alloc/init once; then just return pointer to instance
+//    static dispatch_once_t oncePredicate;
+//    dispatch_once(&oncePredicate,^{
+//        _sharedInstance = 
+//    });
+//    
+//    return _sharedInstance;
+//}
 
 @end

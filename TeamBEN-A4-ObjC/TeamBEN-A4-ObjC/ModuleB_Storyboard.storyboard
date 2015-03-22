@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--ModuleB View Controller-->
@@ -19,11 +20,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-dG-HRf">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjH-B5-43a">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjH-B5-43a">
                                 <rect key="frame" x="16" y="90" width="283" height="21"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="283" id="3An-uM-IAp"/>
+                                    <constraint firstAttribute="height" constant="21" id="qDe-v2-auQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -31,10 +32,6 @@
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDr-Xb-PWX">
                                 <rect key="frame" x="0.0" y="296" width="320" height="272"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="272" id="IYW-h5-W8Q"/>
-                                    <constraint firstAttribute="width" constant="320" id="qb7-iM-DLd"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="TJc-QY-4nP" kind="embed" identifier="Segue_EmbeddedGLK" id="5Sy-zj-JEJ"/>
                                 </connections>
@@ -43,13 +40,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UBD-dG-HRf" firstAttribute="bottom" secondItem="8hs-Oq-bK5" secondAttribute="top" id="2qb-p3-7IO"/>
-                            <constraint firstItem="UBD-dG-HRf" firstAttribute="top" secondItem="jjH-B5-43a" secondAttribute="bottom" constant="-111" id="4WG-DI-wYl"/>
                             <constraint firstAttribute="trailing" secondItem="UBD-dG-HRf" secondAttribute="trailing" id="4gM-D5-wll"/>
-                            <constraint firstItem="UBD-dG-HRf" firstAttribute="leading" secondItem="jjH-B5-43a" secondAttribute="trailing" constant="-299" id="9vh-eM-Ppw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jjH-B5-43a" secondAttribute="trailing" constant="5" id="6VV-NH-QaZ"/>
                             <constraint firstItem="UBD-dG-HRf" firstAttribute="top" secondItem="Wn1-xe-RRH" secondAttribute="top" id="CsP-FU-Ady"/>
-                            <constraint firstItem="fDr-Xb-PWX" firstAttribute="top" secondItem="jjH-B5-43a" secondAttribute="bottom" constant="185" id="SpD-7V-Rzw"/>
+                            <constraint firstItem="jjH-B5-43a" firstAttribute="top" secondItem="T07-Lk-DcE" secondAttribute="bottom" constant="70" id="KDK-Un-eLN"/>
+                            <constraint firstItem="jjH-B5-43a" firstAttribute="leading" secondItem="Wn1-xe-RRH" secondAttribute="leadingMargin" id="KhK-37-TdV"/>
                             <constraint firstItem="UBD-dG-HRf" firstAttribute="leading" secondItem="Wn1-xe-RRH" secondAttribute="leading" id="adU-no-pQK"/>
-                            <constraint firstItem="fDr-Xb-PWX" firstAttribute="leading" secondItem="jjH-B5-43a" secondAttribute="trailing" constant="-299" id="enm-ek-z3d"/>
+                            <constraint firstItem="fDr-Xb-PWX" firstAttribute="leading" secondItem="UBD-dG-HRf" secondAttribute="leading" id="ahn-1h-84h"/>
+                            <constraint firstItem="fDr-Xb-PWX" firstAttribute="top" secondItem="Wn1-xe-RRH" secondAttribute="top" constant="296" id="gVv-cL-4RC"/>
+                            <constraint firstItem="fDr-Xb-PWX" firstAttribute="bottom" secondItem="8hs-Oq-bK5" secondAttribute="top" id="y8F-Bs-Em1"/>
+                            <constraint firstItem="fDr-Xb-PWX" firstAttribute="trailing" secondItem="UBD-dG-HRf" secondAttribute="trailing" id="yVg-XU-0LI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -80,25 +80,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uhe-he-DVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="587" y="317"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Jbq-3q-UWo">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="FtH-nM-Xo5" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fbi-du-VSo"/>
-                        <viewControllerLayoutGuide type="bottom" id="UOb-If-gjM"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pnr-uQ-6Dq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G6B-Fo-TcT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="303" y="967"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+// for callback: http://stackoverflow.com/questions/1015608/how-to-perform-callbacks-in-objective-c
 @interface ModuleBViewController : UIViewController
+{
+    void (^_PPGHandler)(NSArray* ppg);
+//    int (^_motionHandler)(void);
+}
+
+- (void) getPPGHandler:(void(^)(NSArray*))handler;
 
 @end

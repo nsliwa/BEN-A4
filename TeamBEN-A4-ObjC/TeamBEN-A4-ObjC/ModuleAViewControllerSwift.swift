@@ -117,7 +117,21 @@ class ModuleAViewControllerSwift: UIViewController {
             options: optsDetector)
         
         self.videoManager.setProcessingBlock( { (imageInput) -> (CIImage) in
-            var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(UIApplication.sharedApplication().statusBarOrientation),
+            
+            
+            var orientation = UIApplication.sharedApplication().statusBarOrientation
+            
+            if(self.videoManager.getCapturePosition() == AVCaptureDevicePosition.Back) {
+                if(orientation == UIInterfaceOrientation.LandscapeLeft) {
+                    orientation = UIInterfaceOrientation.LandscapeRight;
+                }
+                else if(orientation == UIInterfaceOrientation.LandscapeRight) {
+                    orientation = UIInterfaceOrientation.LandscapeLeft;
+                }
+                
+            }
+            
+            var optsFace = [CIDetectorImageOrientation:self.videoManager.getImageOrientationFromUIOrientation(orientation),
                 CIDetectorSmile:true, CIDetectorEyeBlink:true]
             
             var features = detector.featuresInImage(imageInput, options: optsFace)

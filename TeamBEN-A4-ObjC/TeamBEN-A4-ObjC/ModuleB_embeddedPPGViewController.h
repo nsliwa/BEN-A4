@@ -12,6 +12,4 @@
 
 @property (nonatomic)float outputFrequency;
 
--(void) reCalibrate;
-
 @end

@@ -436,5 +436,8 @@ class VideoAnalgesic: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         }
     }
     
+    func getCapturePosition() -> AVCaptureDevicePosition {
+        return self.devicePosition
+    }
     
 }
