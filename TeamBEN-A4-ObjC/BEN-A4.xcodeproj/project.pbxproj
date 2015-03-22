@@ -33,6 +33,7 @@
 		AD5E97381ABBEA490014F627 /* ModuleA_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E97371ABBEA490014F627 /* ModuleA_SettingsViewController.swift */; };
 		AD5E973A1ABCAA000014F627 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD5E97391ABCAA000014F627 /* UserDefaults.plist */; };
 		AD5E97401ABD33560014F627 /* CustomQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5E973F1ABD33560014F627 /* CustomQueue.m */; };
+		AD5E97441ABE42940014F627 /* ModuleB_embeddedPPGViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD5E97431ABE42940014F627 /* ModuleB_embeddedPPGViewController.mm */; };
 		EF9945DF1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,9 @@
 		AD5E97391ABCAA000014F627 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
 		AD5E973E1ABD33560014F627 /* CustomQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomQueue.h; sourceTree = "<group>"; };
 		AD5E973F1ABD33560014F627 /* CustomQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomQueue.m; sourceTree = "<group>"; };
+		AD5E97411ABE15860014F627 /* SMUGraphHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMUGraphHelper.h; sourceTree = "<group>"; };
+		AD5E97421ABE42940014F627 /* ModuleB_embeddedPPGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleB_embeddedPPGViewController.h; sourceTree = "<group>"; };
+		AD5E97431ABE42940014F627 /* ModuleB_embeddedPPGViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModuleB_embeddedPPGViewController.mm; sourceTree = "<group>"; };
 		EF9945D51AB8C6010031D06F /* TeamBEN-A4-ObjC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamBEN-A4-ObjC-Bridging-Header.h"; sourceTree = "<group>"; };
 		EF9945DE1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleAViewControllerSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,9 +213,12 @@
 		AD43CB201AB11D3C0040EE02 /* Module B */ = {
 			isa = PBXGroup;
 			children = (
+				AD5E97411ABE15860014F627 /* SMUGraphHelper.h */,
 				4942AC791AB9245B0051368D /* ModuleBViewController.h */,
 				4942AC7A1AB9245B0051368D /* ModuleBViewController.mm */,
 				AD43CB211AB11D4D0040EE02 /* ModuleB_Storyboard.storyboard */,
+				AD5E97421ABE42940014F627 /* ModuleB_embeddedPPGViewController.h */,
+				AD5E97431ABE42940014F627 /* ModuleB_embeddedPPGViewController.mm */,
 			);
 			name = "Module B";
 			sourceTree = "<group>";
@@ -322,6 +329,7 @@
 				AD43CAE61AB109190040EE02 /* ViewController.mm in Sources */,
 				AD43CAE31AB109190040EE02 /* AppDelegate.m in Sources */,
 				EF9945DF1AB8D5FC0031D06F /* ModuleAViewControllerSwift.swift in Sources */,
+				AD5E97441ABE42940014F627 /* ModuleB_embeddedPPGViewController.mm in Sources */,
 				AD43CB1C1AB115AB0040EE02 /* MasterViewController.m in Sources */,
 				AD4742941AB91ED5002F2905 /* VideoAnalgesic.swift in Sources */,
 				AD5E97401ABD33560014F627 /* CustomQueue.m in Sources */,
